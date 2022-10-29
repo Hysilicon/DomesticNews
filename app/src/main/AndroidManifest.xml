@@ -13,6 +13,13 @@
         android:theme="@style/Theme.DomesticNews"
         tools:targetApi="31">
         <activity
+            android:name=".NewsPageActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
+        </activity>
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
