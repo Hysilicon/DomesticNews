@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.reality.realityapp.ui.activity.MainActivity">
+    <item
+        android:id="@+id/toolbar_switch_city"
+        android:orderInCategory="80"
+        android:imeOptions="actionSearch"
+        android:title="切换城市"
+        app:showAsAction="always"
+        />
+
+</menu>

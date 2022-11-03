@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/action_news"
+        android:enabled="true"
+        android:icon="@drawable/xiabianlan_xinwen"
+        android:title="@string/xiabianlan_xinwen"
+        app:showAsAction="ifRoom"/>
+    <item
+        android:id="@+id/action_media"
+        android:enabled="true"
+        android:icon="@drawable/xiabianlan_me"
+        android:title="@string/xiabianlan_me"
+        app:showAsAction="ifRoom"/>
+</menu>

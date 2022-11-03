@@ -1,3 +1,18 @@
 <resources>
-    <string name="app_name">DomesticNews</string>
-</resources>
+    <string name="app_name">新闻</string>
+
+    <!--    下边栏-->
+    <string name="xiabianlan_xinwen">新闻</string>
+    <string name="xiabianlan_me">我的</string>
+
+    <!--    侧边栏-->
+    <string name="cebianlan_item1">夜览</string>
+    <string name="cebianlan_item2">设置</string>
+    <string name="cebianlan_item3">缓存</string>
+    <string name="cebianlan_item4">天气</string>
+    <string name="cebianlan_item5">日期</string>
+    <string name="cebianlan_item6">时间</string>
+
+    <!--    侧边栏按钮-->
+    <string name="cebianlan_open">Open navigation drawer</string>
+    <string name="cebianlan_close">Close navigation drawer</string></resources>
