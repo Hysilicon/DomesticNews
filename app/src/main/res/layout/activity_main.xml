@@ -14,9 +14,14 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <include layout="@layout/toolbar"/>
-        <include layout="@layout/container"/>
 
         <!--    下边栏的显示-->
+        <include
+            android:id="@+id/include"
+            layout="@layout/container"
+            app:layout_anchor="@+id/include"
+            app:layout_anchorGravity="center" />
+
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/bottom_navigation"
             app:labelVisibilityMode="labeled"

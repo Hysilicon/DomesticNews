@@ -62,6 +62,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         toggle.syncState();
     }
 
+    
+
     @Override
     // 侧边栏打开后各个item点击效果
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
