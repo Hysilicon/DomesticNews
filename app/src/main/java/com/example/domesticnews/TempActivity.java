@@ -1,34 +1,98 @@
 package com.example.domesticnews;
 
+import static android.content.Context.LOCATION_SERVICE;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.pm.PackageManager;
+import android.location.Address;
+import android.location.Geocoder;
+import android.location.Location;
+import android.location.LocationManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.tasks.OnSuccessListener;
+
+import java.io.IOException;
+import java.util.List;
+import java.util.Locale;
 
 public class TempActivity extends AppCompatActivity {
 
     private TextView locationText;
+    Button get_location;
+    private FusedLocationProviderClient flpclient;
+
+
     public static final int MY_PERMISSIONS_REQUEST_LOCATION_CODE = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_temp);
+        flpclient = LocationServices.getFusedLocationProviderClient(this);
 
+        locationText = (TextView) findViewById(R.id.locationText);
+
+//        get_location.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                getLastLocation();
+//            }
+//        });
+
+
+    }
+
+    public void getLastLocation(View view) {
+
+        if (ContextCompat.checkSelfPermission(TempActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+            Toast.makeText(TempActivity.this, "Get city", Toast.LENGTH_SHORT).show();
+            flpclient.getLastLocation()
+                    .addOnSuccessListener(this, new OnSuccessListener<Location>() {
+                        @Override
+                        public void onSuccess(Location location) {
+                            // Got last known location. In some rare situations this can be null.
+                            if (location != null) {
+                                // Logic to handle location object
+                                Geocoder geocoder = new Geocoder(TempActivity.this, Locale.getDefault());
+                                List<Address> addresses = null;
+                                try {
+                                    addresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(),
+                                            1);
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+
+                                locationText.setText(addresses.get(0).getLocality() + addresses.get(0).getAddressLine(0));
+
+                            }
+                        }
+                    });
+
+        } else {
+            requestLocationPermission();
+        }
     }
 
     public void LocationMethod(View view) {
 
         if (ContextCompat.checkSelfPermission(TempActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
             Toast.makeText(TempActivity.this, "You have already granted this permission", Toast.LENGTH_SHORT).show();
+
         } else {
             requestLocationPermission();
         }
@@ -68,4 +132,5 @@ public class TempActivity extends AppCompatActivity {
             }
         }
     }
+
 }
