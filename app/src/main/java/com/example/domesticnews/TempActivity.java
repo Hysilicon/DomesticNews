@@ -2,6 +2,8 @@ package com.example.domesticnews;
 
 import static android.content.Context.LOCATION_SERVICE;
 
+import static com.example.domesticnews.R.id.locationTextByManager;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -15,6 +17,7 @@ import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
+import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
@@ -32,9 +35,19 @@ import java.util.Locale;
 
 public class TempActivity extends AppCompatActivity {
 
-    private TextView locationText;
-    Button get_location;
+    TextView locationText;
+    TextView locationTextByManager;
+
+
+    protected LocationManager locationManager;
+    protected LocationListener locationListener;
+
+    protected Context context;
+
     private FusedLocationProviderClient flpclient;
+
+    protected boolean gps_enabled, network_enabled;
+
 
 
     public static final int MY_PERMISSIONS_REQUEST_LOCATION_CODE = 1;
@@ -46,16 +59,45 @@ public class TempActivity extends AppCompatActivity {
         flpclient = LocationServices.getFusedLocationProviderClient(this);
 
         locationText = (TextView) findViewById(R.id.locationText);
+        locationTextByManager = (TextView) findViewById(R.id.locationTextByManager);
 
-//        get_location.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                getLastLocation();
-//            }
-//        });
+
+
 
 
     }
+
+    public Location getLastLocation(){
+
+
+        Location location = null;
+        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        if (ContextCompat.checkSelfPermission(TempActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+
+            if (locationManager == null) {
+                return null;
+            }
+            List<String> providers = locationManager.getProviders(true);
+            for (String provider : providers) {
+                Location l = locationManager.getLastKnownLocation(provider);
+                if (l == null) {
+                    continue;
+                }
+                if (location == null || l.getAccuracy() < location.getAccuracy()) {
+                    // Found best last known location: %s", l);
+                    location = l;
+                }
+            }
+
+
+        }
+        return location;
+
+
+    }
+
+
+
 
     public void getLastLocation(View view) {
 
@@ -87,6 +129,8 @@ public class TempActivity extends AppCompatActivity {
             requestLocationPermission();
         }
     }
+
+
 
     public void LocationMethod(View view) {
 
