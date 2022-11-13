@@ -14,6 +14,8 @@ import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -34,7 +36,6 @@ public class TempActivity extends AppCompatActivity {
     TextView locationTextByManager;
 
     protected LocationManager locationManager;
-    private FusedLocationProviderClient flpclient;
     public static final int MY_PERMISSIONS_REQUEST_LOCATION_CODE = 1;
     public static final int MY_PERMISSIONS_REQUEST_INTERNET_CODE = 1;
 
@@ -42,7 +43,6 @@ public class TempActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_temp);
-        flpclient = LocationServices.getFusedLocationProviderClient(this);
 
         locationText = (TextView) findViewById(R.id.locationText);
         locationTextByManager = (TextView) findViewById(R.id.locationTextByManager);
@@ -73,20 +73,22 @@ public class TempActivity extends AppCompatActivity {
 
             if (location != null) {
 
-                StringBuffer sb = new StringBuffer();
-                sb.append(location.getLongitude());
-                locationTextByManager.setText(sb.toString());
 
-                // Logic to handle location object
-                Geocoder geocoder = new Geocoder(TempActivity.this, Locale.getDefault());
-                List<Address> addresses = null;
-                try {
-                    addresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(),
-                            1);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                locationText.setText(addresses.get(0).getAddressLine(0));
+                String locationString = location.getLatitude() + "," +  location.getLongitude();
+
+                ConnectivityManager connMgr = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+                NetworkInfo networkInfo = null;
+                if (connMgr != null) {
+                    networkInfo = connMgr.getActiveNetworkInfo();
+                    if (networkInfo != null && networkInfo.isConnected()) {
+                        new FetchAddress(locationText).execute(locationString);
+                    }
+
+                    }
+                //locationText.setText(NetworkUtils.getAddressByGeocoder(TempActivity.this, location));
+
+
+
 
             }else{
                 locationTextByManager.setText("null");
@@ -100,6 +102,7 @@ public class TempActivity extends AppCompatActivity {
     }
 
     //Old method by using flpclient by GMS
+
 //    public void getLastLocation(View view) {
 //        if (ContextCompat.checkSelfPermission(TempActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED){
 //            Toast.makeText(TempActivity.this, "Get city", Toast.LENGTH_SHORT).show();

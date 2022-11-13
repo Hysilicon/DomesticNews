@@ -20,4 +20,5 @@
     <string name="ask_loc_permission">Permission</string>
     <string name="ok">OK</string>
     <string name="location">Location</string>
+    <string name="no_results">No result</string>
 </resources>
