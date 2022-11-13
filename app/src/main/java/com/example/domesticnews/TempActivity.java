@@ -1,5 +1,6 @@
 package com.example.domesticnews;
 
+import static android.content.ContentValues.TAG;
 import static android.content.Context.LOCATION_SERVICE;
 
 import static com.example.domesticnews.R.id.locationTextByManager;
@@ -62,43 +63,51 @@ public class TempActivity extends AppCompatActivity {
         locationTextByManager = (TextView) findViewById(R.id.locationTextByManager);
 
 
-
-
-
     }
 
-    public Location getLastLocation(){
+    public void getLastKnownLocation(View view){
 
 
         Location location = null;
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         if (ContextCompat.checkSelfPermission(TempActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
 
-            if (locationManager == null) {
-                return null;
-            }
-            List<String> providers = locationManager.getProviders(true);
-            for (String provider : providers) {
-                Location l = locationManager.getLastKnownLocation(provider);
-                if (l == null) {
-                    continue;
+//            List<String> providers = locationManager.getProviders(true);
+//            for (String provider : providers) {
+//                Location l = locationManager.getLastKnownLocation(provider);
+//                if (l == null) {
+//                    continue;
+//                }
+//                if (location == null || l.getAccuracy() < location.getAccuracy()) {
+//                    // Found best last known location: %s", l);
+//                    location = l;
+//                }
+//            }
+            String provider = LocationManager.NETWORK_PROVIDER;
+            location = locationManager.getLastKnownLocation(provider);
+
+
+            if (location != null) {
+                // Logic to handle location object
+                Geocoder geocoder = new Geocoder(TempActivity.this, Locale.getDefault());
+                List<Address> addresses = null;
+                try {
+                    addresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(),
+                            1);
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
-                if (location == null || l.getAccuracy() < location.getAccuracy()) {
-                    // Found best last known location: %s", l);
-                    location = l;
-                }
+
+                locationText.setText(addresses.get(0).getLocality());
+
             }
 
 
         }
-        return location;
-
 
     }
 
-
-
-
+   //Old method
     public void getLastLocation(View view) {
 
         if (ContextCompat.checkSelfPermission(TempActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
@@ -119,7 +128,7 @@ public class TempActivity extends AppCompatActivity {
                                     e.printStackTrace();
                                 }
 
-                                locationText.setText(addresses.get(0).getLocality() + addresses.get(0).getAddressLine(0));
+                                locationText.setText(addresses.get(0).getLocality());
 
                             }
                         }
