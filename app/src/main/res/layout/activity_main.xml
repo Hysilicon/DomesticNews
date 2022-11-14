@@ -34,6 +34,7 @@
             app:itemIconTint="@drawable/xia_bian_lan_xuan_ze"
             app:itemTextColor="@drawable/xia_bian_lan_xuan_ze"
             app:menu="@menu/xia_bian_lan"/>
+
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
     <!--    测边栏的显示-->
@@ -44,6 +45,28 @@
         android:layout_gravity="start"
         android:fitsSystemWindows="true"
         app:headerLayout="@layout/cebianlan_header"
-        app:menu="@menu/ce_bian_lan"/>
+        app:menu="@menu/ce_bian_lan">
+
+        <TextView
+            android:id="@+id/textView111"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="invisible" />
+
+        <TextView
+            android:id="@+id/textView222"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="invisible" />
+
+        <Button
+            android:id="@+id/button"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:onClick="getLastKnownLocation"
+            android:text="Get Location"
+            android:layout_marginTop="500dp"
+            android:layout_marginLeft="50dp"/>
+    </com.google.android.material.navigation.NavigationView>
 
 </androidx.drawerlayout.widget.DrawerLayout>

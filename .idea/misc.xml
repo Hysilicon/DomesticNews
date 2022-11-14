@@ -3,6 +3,20 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/umr/Downloads/DomesticNews/app/src/main/res/drawable-v24/huancun.xml" value="0.1575" />
+        <entry key="..\:/Users/umr/Downloads/DomesticNews/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1575" />
+        <entry key="..\:/Users/umr/Downloads/DomesticNews/app/src/main/res/drawable-v24/night_mode.xml" value="0.1575" />
+        <entry key="..\:/Users/umr/Downloads/DomesticNews/app/src/main/res/drawable-v24/setting.xml" value="0.1575" />
+        <entry key="..\:/Users/umr/Downloads/DomesticNews/app/src/main/res/drawable-v24/xiabianlan_me.xml" value="0.1575" />
+        <entry key="..\:/Users/umr/Downloads/DomesticNews/app/src/main/res/drawable-v24/xiabianlan_xinwen.xml" value="0.1575" />
+        <entry key="..\:/Users/umr/Downloads/DomesticNews/app/src/main/res/drawable/ic_launcher_background.xml" value="0.2775" />
+        <entry key="..\:/Users/umr/Downloads/DomesticNews/app/src/main/res/drawable/xia_bian_lan_xuan_ze.xml" value="0.2775" />
+        <entry key="..\:/Users/umr/Downloads/DomesticNews/app/src/main/res/layout/activity_main.xml" value="0.18867924528301888" />
+        <entry key="..\:/Users/umr/Downloads/DomesticNews/app/src/main/res/layout/activity_temp.xml" value="0.3333333333333333" />
+        <entry key="..\:/Users/umr/Downloads/DomesticNews/app/src/main/res/layout/container.xml" value="0.290625" />
+        <entry key="..\:/Users/umr/Downloads/DomesticNews/app/src/main/res/layout/toolbar.xml" value="0.290625" />
+        <entry key="..\:/Users/umr/Downloads/DomesticNews/app/src/main/res/menu/ce_bian_lan.xml" value="0.3333333333333333" />
+        <entry key="..\:/Users/umr/Downloads/DomesticNews/app/src/main/res/menu/switch_city.xml" value="0.290625" />
         <entry key="..\:/anzhuo/domesticnews/app/src/main/res/drawable-v24/xiabianlan_xinwen.xml" value="0.1" />
         <entry key="..\:/anzhuo/domesticnews/app/src/main/res/drawable/xia_bian_lan_xuan_ze.xml" value="0.1" />
         <entry key="..\:/anzhuo/domesticnews/app/src/main/res/layout/activity_main.xml" value="0.290625" />

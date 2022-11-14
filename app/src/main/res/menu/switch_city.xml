@@ -7,7 +7,7 @@
         android:id="@+id/toolbar_switch_city"
         android:orderInCategory="80"
         android:imeOptions="actionSearch"
-        android:title="切换城市"
+        android:title="Switch city"
         app:showAsAction="always"
         />
 

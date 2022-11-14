@@ -1,12 +1,20 @@
 package com.example.domesticnews;
 
+import android.Manifest;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.location.Location;
+import android.location.LocationManager;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -14,18 +22,22 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.core.view.GravityCompat;
 import androidx.core.view.MenuItemCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import com.google.android.material.navigation.NavigationView;
 import java.util.Date;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     //城市名，需要赋值
-    private String city = "城市（可修改）";
-
+    private String city = "City";
+    // 标题栏和侧边栏
     private Toolbar toolbar;
     private DrawerLayout drawer;
+
 
     //search view toolbar菜单栏搜索
     SearchView.SearchAutoComplete mSearchAutoComplete;
@@ -38,11 +50,23 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     String riqi = allshijian.split(" ")[1] + " " + allshijian.split(" ")[2] + " " + allshijian.split(" ")[5];
     String shijian = allshijian.split(" ")[3];
 
+    //获取定位
+    TextView locationText;
+    TextView locationTextByManager;
+
+    protected LocationManager locationManager;
+    public static final int MY_PERMISSIONS_REQUEST_LOCATION_CODE = 1;
+    public static final int MY_PERMISSIONS_REQUEST_INTERNET_CODE = 1;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         toolbar = findViewById(R.id.toolbar);
+
+        //获取定位
+        locationText = (TextView) findViewById(R.id.textView111);
+        locationTextByManager = (TextView) findViewById(R.id.textView222);
 
         //接受城市名字，并显示出来
         toolbar.setTitle(city);
@@ -62,17 +86,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         toggle.syncState();
     }
 
-    
+
 
     @Override
     // 侧边栏打开后各个item点击效果
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.night_mode:
-                break;
-            case R.id.setting:
-                break;
-            case R.id.huancun:
                 break;
             case R.id.rili:
                 Toast.makeText(this, riqi, Toast.LENGTH_SHORT).show();
@@ -111,7 +131,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         switch (item.getItemId()) {
             case R.id.toolbar_switch_city:
                 AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-                builder.setTitle("选择城市");
+                builder.setTitle("Choose City");
                 builder.setIcon(R.drawable.location);
                 final String itemsId[] = {"苏州", "无锡", "常州", "南京", "宿迁"};
                 final boolean []checkedItems=new boolean[]{false,false,false,false,false};
@@ -121,8 +141,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         checkedItems[which]=isChecked;
                     }
                 });
-                builder.setPositiveButton("确定", null);
-                builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                builder.setPositiveButton("Yes", null);
+                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
@@ -147,11 +167,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                             }
                         }
                         if (hasSelected) {
-                            Toast.makeText(MainActivity.this, "提交成功！", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(MainActivity.this, "Submit Successfully！", Toast.LENGTH_SHORT).show();
                             dialog.dismiss();
                         }
                         else {
-                            Toast.makeText(MainActivity.this, "还未选择！", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(MainActivity.this, "Need a choice！", Toast.LENGTH_SHORT).show();
                             return;
                         }
 
@@ -167,5 +187,84 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 
 
+// 获取定位
+public void getLastKnownLocation(View view) {
+
+
+    Location location = null;
+    locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+    if (ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+
+        List<String> providers = locationManager.getProviders(true);
+        for (String provider : providers) {
+            Log.d("providers", provider);
+            Location l = locationManager.getLastKnownLocation(provider);
+            if (l == null) {
+                continue;
+            }
+            if (location == null || l.getAccuracy() < location.getAccuracy()) {
+                // Found best last known location: %s", l);
+                location = l;
+            }
+        }
+
+        //location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+
+        if (location != null) {
+
+
+            String locationString = location.getLatitude() + "," +  location.getLongitude();
+
+            ConnectivityManager connMgr = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+            NetworkInfo networkInfo = null;
+            if (connMgr != null) {
+                networkInfo = connMgr.getActiveNetworkInfo();
+                if (networkInfo != null && networkInfo.isConnected()) {
+                    new FetchAddress(locationText).execute(locationString);
+                    toolbar.setTitle(locationText.getText().toString());
+                    drawer.closeDrawer(GravityCompat.START);
+                }
+
+            }
+            //locationText.setText(NetworkUtils.getAddressByGeocoder(TempActivity.this, location));
+
+
+
+
+        }else{
+            toolbar.setTitle("Need GPS!");
+            Toast.makeText(MainActivity.this, "Need GPS!!！", Toast.LENGTH_SHORT).show();
+            drawer.closeDrawer(GravityCompat.START);
+        }
+
+
+    }else{
+        requestLocationPermission();
+        drawer.closeDrawer(GravityCompat.START);
+    }
+}
+
+    private void requestLocationPermission() {
+        if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.ACCESS_FINE_LOCATION)) {
+
+            new android.app.AlertDialog.Builder(this).setTitle("Permission needed")
+                    .setMessage("Need Permission")
+                    .setPositiveButton(R.string.ok, (dialogInterface, i) -> ActivityCompat.requestPermissions(MainActivity.this, new String[]{
+                            Manifest.permission.ACCESS_FINE_LOCATION
+                    }, MY_PERMISSIONS_REQUEST_LOCATION_CODE))
+                    .setNegativeButton("cancel", (dialogInterface, i) -> dialogInterface.dismiss())
+
+                    .create()
+                    .show();
+
+        } else {
+            ActivityCompat.requestPermissions(this, new String[]{
+                    Manifest.permission.ACCESS_FINE_LOCATION
+            }, MY_PERMISSIONS_REQUEST_LOCATION_CODE);
+        }
+
 
     }
+
+
+}
