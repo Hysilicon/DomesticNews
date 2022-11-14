@@ -87,7 +87,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
 
-
     @Override
     // 侧边栏打开后各个item点击效果
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -134,11 +133,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 builder.setTitle("Choose City");
                 builder.setIcon(R.drawable.location);
                 final String itemsId[] = {"苏州", "无锡", "常州", "南京", "宿迁"};
-                final boolean []checkedItems=new boolean[]{false,false,false,false,false};
+                final boolean[] checkedItems = new boolean[]{false, false, false, false, false};
                 builder.setMultiChoiceItems(itemsId, checkedItems, new DialogInterface.OnMultiChoiceClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which, boolean isChecked) {
-                        checkedItems[which]=isChecked;
+                        checkedItems[which] = isChecked;
                     }
                 });
                 builder.setPositiveButton("Yes", null);
@@ -154,13 +153,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 dialog.getButton(DialogInterface.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Log.d("checkedItems", "checkedItems: "+checkedItems);
-                        String text="";
-                        boolean hasSelected=false;
-                        for(int i=0;i<itemsId.length;i++)
-                        {
-                            text+=checkedItems[i]?itemsId[i]+",":"";
-                            if (checkedItems[i]){
+                        Log.d("checkedItems", "checkedItems: " + checkedItems);
+                        String text = "";
+                        boolean hasSelected = false;
+                        for (int i = 0; i < itemsId.length; i++) {
+                            text += checkedItems[i] ? itemsId[i] + "," : "";
+                            if (checkedItems[i]) {
                                 hasSelected = checkedItems[i];
                                 toolbar.setTitle(itemsId[i]);
                                 break;
@@ -169,8 +167,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         if (hasSelected) {
                             Toast.makeText(MainActivity.this, "Submit Successfully！", Toast.LENGTH_SHORT).show();
                             dialog.dismiss();
-                        }
-                        else {
+                        } else {
                             Toast.makeText(MainActivity.this, "Need a choice！", Toast.LENGTH_SHORT).show();
                             return;
                         }
@@ -186,63 +183,104 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
 
-
-// 获取定位
-public void getLastKnownLocation(View view) {
-
-
-    Location location = null;
-    locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-    if (ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-
-        List<String> providers = locationManager.getProviders(true);
-        for (String provider : providers) {
-            Log.d("providers", provider);
-            Location l = locationManager.getLastKnownLocation(provider);
-            if (l == null) {
-                continue;
-            }
-            if (location == null || l.getAccuracy() < location.getAccuracy()) {
-                // Found best last known location: %s", l);
-                location = l;
-            }
-        }
-
-        //location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-
-        if (location != null) {
+    // 获取定位
+    public void getLastKnownLocation(View view) {
 
 
-            String locationString = location.getLatitude() + "," +  location.getLongitude();
+        Location location = null;
+        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        if (ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
 
-            ConnectivityManager connMgr = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-            NetworkInfo networkInfo = null;
-            if (connMgr != null) {
-                networkInfo = connMgr.getActiveNetworkInfo();
-                if (networkInfo != null && networkInfo.isConnected()) {
-                    new FetchAddress(locationText).execute(locationString);
-                    toolbar.setTitle(locationText.getText().toString());
-                    drawer.closeDrawer(GravityCompat.START);
+            List<String> providers = locationManager.getProviders(true);
+            for (String provider : providers) {
+                Log.d("providers", provider);
+                Location l = locationManager.getLastKnownLocation(provider);
+                if (l == null) {
+                    continue;
                 }
-
+                if (location == null || l.getAccuracy() < location.getAccuracy()) {
+                    // Found best last known location: %s", l);
+                    location = l;
+                }
             }
-            //locationText.setText(NetworkUtils.getAddressByGeocoder(TempActivity.this, location));
+
+            //location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+
+            if (location != null) {
 
 
+                String locationString = location.getLatitude() + "," + location.getLongitude();
+
+                ConnectivityManager connMgr = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+                NetworkInfo networkInfo = null;
+                if (connMgr != null) {
+                    networkInfo = connMgr.getActiveNetworkInfo();
+                    if (networkInfo != null && networkInfo.isConnected()) {
+                        new FetchAddress(locationText).execute(locationString);
+                        toolbar.setTitle(locationText.getText().toString());
+                        drawer.closeDrawer(GravityCompat.START);
+                    }
+
+                }
+                //locationText.setText(NetworkUtils.getAddressByGeocoder(MainActivity.this, location));
 
 
-        }else{
-            toolbar.setTitle("Need GPS!");
-            Toast.makeText(MainActivity.this, "Need GPS!!！", Toast.LENGTH_SHORT).show();
+            } else {
+                toolbar.setTitle("Need GPS!");
+                Toast.makeText(MainActivity.this, "Need GPS!!！", Toast.LENGTH_SHORT).show();
+                drawer.closeDrawer(GravityCompat.START);
+            }
+
+
+        } else {
+            requestLocationPermission();
             drawer.closeDrawer(GravityCompat.START);
         }
-
-
-    }else{
-        requestLocationPermission();
-        drawer.closeDrawer(GravityCompat.START);
     }
-}
+
+    //Old method by using flpclient by GMS
+
+//    public void getLastLocation(View view) {
+//        if (ContextCompat.checkSelfPermission(TempActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED){
+//            Toast.makeText(TempActivity.this, "Get city", Toast.LENGTH_SHORT).show();
+//            flpclient.getLastLocation()
+//                    .addOnSuccessListener(this, new OnSuccessListener<Location>() {
+//                        @Override
+//                        public void onSuccess(Location location) {
+//                            // Got last known location. In some rare situations this can be null.
+//                            if (location != null) {
+//                                // Logic to handle location object
+//                                Geocoder geocoder = new Geocoder(TempActivity.this, Locale.getDefault());
+//                                List<Address> addresses = null;
+//                                try {
+//                                    addresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(),
+//                                            1);
+//                                } catch (IOException e) {
+//                                    e.printStackTrace();
+//                                }
+//
+//                                locationText.setText(addresses.get(0).getLocality());
+//
+//                            }
+//                        }
+//                    });
+//
+//        } else {
+//            requestLocationPermission();
+//        }
+//    }
+
+
+    public void LocationMethod(View view) {
+
+        if (ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+            Toast.makeText(MainActivity.this, "You have already granted this permission", Toast.LENGTH_SHORT).show();
+
+        } else {
+            requestLocationPermission();
+        }
+
+    }
 
     private void requestLocationPermission() {
         if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.ACCESS_FINE_LOCATION)) {
@@ -266,5 +304,37 @@ public void getLastKnownLocation(View view) {
 
     }
 
+    private void requestInternetPermission() {
+        if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.INTERNET)) {
 
+            new android.app.AlertDialog.Builder(this).setTitle("Permission needed")
+                    .setMessage("Need Permission")
+                    .setPositiveButton(R.string.ok, (dialogInterface, i) -> ActivityCompat.requestPermissions(MainActivity.this, new String[]{
+                            Manifest.permission.INTERNET
+                    }, MY_PERMISSIONS_REQUEST_INTERNET_CODE))
+                    .setNegativeButton("cancel", (dialogInterface, i) -> dialogInterface.dismiss())
+
+                    .create()
+                    .show();
+
+        } else {
+            ActivityCompat.requestPermissions(this, new String[]{
+                    Manifest.permission.INTERNET
+            }, MY_PERMISSIONS_REQUEST_INTERNET_CODE);
+        }
+
+
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == MY_PERMISSIONS_REQUEST_LOCATION_CODE) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                Toast.makeText(this, "Permission GRANTED", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(this, "Permission DENIED", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
 }
