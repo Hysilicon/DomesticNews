@@ -56,6 +56,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     protected LocationManager locationManager;
     public static final int MY_PERMISSIONS_REQUEST_LOCATION_CODE = 1;
+    public static final int MY_PERMISSIONS_REQUEST_INTERNET_CODE = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -219,9 +220,8 @@ public void getLastKnownLocation(View view) {
             if (connMgr != null) {
                 networkInfo = connMgr.getActiveNetworkInfo();
                 if (networkInfo != null && networkInfo.isConnected()) {
-                    new FetchAddress(toolbar).execute(locationString);
-                    Log.d("LocationText", locationText.getText().toString());
-//                    toolbar.setTitle(locationText.getText().toString());
+                    new FetchAddress(locationText).execute(locationString);
+                    toolbar.setTitle(locationText.getText().toString());
                     drawer.closeDrawer(GravityCompat.START);
                 }
 
@@ -264,18 +264,6 @@ public void getLastKnownLocation(View view) {
         }
 
 
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (requestCode == MY_PERMISSIONS_REQUEST_LOCATION_CODE) {
-            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                Toast.makeText(this, "Permission GRANTED", Toast.LENGTH_SHORT).show();
-            } else {
-                Toast.makeText(this, "Permission DENIED", Toast.LENGTH_SHORT).show();
-            }
-        }
     }
 
 
