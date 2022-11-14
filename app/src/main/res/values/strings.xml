@@ -6,7 +6,7 @@
     <string name="xiabianlan_me">Mine</string>
 
     <!--    侧边栏-->
-    <string name="cebianlan_item1">Night Mode</string>
+    <string name="cebianlan_item1">Switch Mode</string>
     <string name="cebianlan_item2">Get location</string>
     <string name="cebianlan_item5">Data</string>
     <string name="cebianlan_item6">Time</string>
