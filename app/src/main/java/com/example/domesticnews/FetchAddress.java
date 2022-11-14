@@ -5,6 +5,8 @@ import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.TextView;
 
+import androidx.appcompat.widget.Toolbar;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -13,11 +15,19 @@ import java.lang.ref.WeakReference;
 
 public class FetchAddress extends AsyncTask<String, Void, String> {
 
-    private WeakReference<TextView> locationText;
+    private WeakReference<Toolbar> toolbar;
 
-    public FetchAddress(TextView locationText) {
-        this.locationText = new WeakReference<>(locationText);
+    public FetchAddress(Toolbar toolbar) {
+        this.toolbar = new WeakReference<>(toolbar);
     }
+
+//    private WeakReference<TextView> locationText;
+//
+//    public FetchAddress(TextView locationText) {
+//        this.locationText = new WeakReference<>(locationText);
+//    }
+
+
 
     @Override
     protected String doInBackground(String... strings) {
@@ -68,16 +78,18 @@ public class FetchAddress extends AsyncTask<String, Void, String> {
 
 
             if (formatted_address != null) {
-                locationText.get().setText(formatted_address);
+//                locationText.get().setText(formatted_address);
+                toolbar.get().setTitle(formatted_address);
             } else {
-                locationText.get().setText(R.string.no_results);
+//                locationText.get().setText(R.string.no_results);
+                toolbar.get().setTitle(R.string.no_results);
             }
 
 
         } catch (JSONException e) {
             // If onPostExecute does not receive a proper JSON string,
             // update the UI to show failed results.
-            locationText.get().setText(R.string.no_results);
+//            locationText.get().setText(R.string.no_results);
             e.printStackTrace();
         }
 

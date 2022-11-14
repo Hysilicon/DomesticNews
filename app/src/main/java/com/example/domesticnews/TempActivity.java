@@ -37,7 +37,6 @@ public class TempActivity extends AppCompatActivity {
 
     protected LocationManager locationManager;
     public static final int MY_PERMISSIONS_REQUEST_LOCATION_CODE = 1;
-    public static final int MY_PERMISSIONS_REQUEST_INTERNET_CODE = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,60 +48,59 @@ public class TempActivity extends AppCompatActivity {
 
     }
 
-    public void getLastKnownLocation(View view) {
-
-
-        Location location = null;
-        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-        if (ContextCompat.checkSelfPermission(TempActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-
-            List<String> providers = locationManager.getProviders(true);
-            for (String provider : providers) {
-                Log.d("providers", provider);
-                Location l = locationManager.getLastKnownLocation(provider);
-                if (l == null) {
-                    continue;
-                }
-                if (location == null || l.getAccuracy() < location.getAccuracy()) {
-                    // Found best last known location: %s", l);
-                    location = l;
-                }
-            }
-
-            //location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-
-            if (location != null) {
-
-
-                String locationString = location.getLatitude() + "," +  location.getLongitude();
-
-                ConnectivityManager connMgr = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-                NetworkInfo networkInfo = null;
-                if (connMgr != null) {
-                    networkInfo = connMgr.getActiveNetworkInfo();
-                    if (networkInfo != null && networkInfo.isConnected()) {
-                        new FetchAddress(locationText).execute(locationString);
-                    }
-
-                    }
-                //locationText.setText(NetworkUtils.getAddressByGeocoder(TempActivity.this, location));
-
-
-
-
-            }else{
-                locationTextByManager.setText("null");
-            }
-
-
-        }else{
-            requestLocationPermission();
-        }
-
-    }
+//    public void getLastKnownLocation(View view) {
+//
+//
+//        Location location = null;
+//        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+//        if (ContextCompat.checkSelfPermission(TempActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+//
+//            List<String> providers = locationManager.getProviders(true);
+//            for (String provider : providers) {
+//                Log.d("providers", provider);
+//                Location l = locationManager.getLastKnownLocation(provider);
+//                if (l == null) {
+//                    continue;
+//                }
+//                if (location == null || l.getAccuracy() < location.getAccuracy()) {
+//                    // Found best last known location: %s", l);
+//                    location = l;
+//                }
+//            }
+//
+//            //location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+//
+//            if (location != null) {
+//
+//
+//                String locationString = location.getLatitude() + "," +  location.getLongitude();
+//
+//                ConnectivityManager connMgr = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+//                NetworkInfo networkInfo = null;
+//                if (connMgr != null) {
+//                    networkInfo = connMgr.getActiveNetworkInfo();
+//                    if (networkInfo != null && networkInfo.isConnected()) {
+//                        new FetchAddress(toolbar).execute(locationString);
+//                    }
+//
+//                    }
+//                //locationText.setText(NetworkUtils.getAddressByGeocoder(TempActivity.this, location));
+//
+//
+//
+//
+//            }else{
+//                locationTextByManager.setText("null");
+//            }
+//
+//
+//        }else{
+//            requestLocationPermission();
+//        }
+//
+//    }
 
     //Old method by using flpclient by GMS
-
 //    public void getLastLocation(View view) {
 //        if (ContextCompat.checkSelfPermission(TempActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED){
 //            Toast.makeText(TempActivity.this, "Get city", Toast.LENGTH_SHORT).show();
@@ -167,27 +165,6 @@ public class TempActivity extends AppCompatActivity {
 
     }
 
-    private void requestInternetPermission() {
-        if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.INTERNET)) {
-
-            new AlertDialog.Builder(this).setTitle("Permission needed")
-                    .setMessage("Need Permission")
-                    .setPositiveButton(R.string.ok, (dialogInterface, i) -> ActivityCompat.requestPermissions(TempActivity.this, new String[]{
-                            Manifest.permission.INTERNET
-                    }, MY_PERMISSIONS_REQUEST_INTERNET_CODE))
-                    .setNegativeButton("cancel", (dialogInterface, i) -> dialogInterface.dismiss())
-
-                    .create()
-                    .show();
-
-        }else {
-            ActivityCompat.requestPermissions(this, new String[]{
-                    Manifest.permission.INTERNET
-            }, MY_PERMISSIONS_REQUEST_INTERNET_CODE);
-        }
-
-
-    }
 
 
 
