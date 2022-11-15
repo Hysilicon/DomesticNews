@@ -19,4 +19,7 @@
     <string name="ok">OK</string>
     <string name="location">Location</string>
     <string name="no_results">No result</string>
+
+    <!--    webview界面-->
+    <string name="WebView">WebView界面示例</string>
 </resources>
