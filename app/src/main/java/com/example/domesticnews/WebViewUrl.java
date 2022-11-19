@@ -18,7 +18,10 @@ public class WebViewUrl extends AppCompatActivity {
 
 
         WebView webView = findViewById(R.id.WebView_URL);
-        webView.loadUrl("http://121.37.95.54:3001/articles/");
+        webView.loadUrl("http://121.37.95.54:3001/allnews");
+
+        webView.getSettings().setSupportZoom(true);
+        webView.getSettings().setBuiltInZoomControls(true);
 
     }
 }
