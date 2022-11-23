@@ -70,7 +70,7 @@ public class FetchAddress extends AsyncTask<String, Void, String> {
 
             try {
                 JSONObject result = q.getJSONObject("result");
-                formatted_address = result.getString("formatted_address");
+                formatted_address = result.getJSONObject("addressComponent").getString("district");
 
             } catch (Exception e) {
                 e.printStackTrace();

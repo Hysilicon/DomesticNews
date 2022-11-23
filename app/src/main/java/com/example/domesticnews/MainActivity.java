@@ -14,6 +14,11 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.webkit.JsResult;
+import android.webkit.WebChromeClient;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -36,10 +41,12 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     //城市名，需要赋值
-    private String city = "City";
+    private final String CITY = "City";
     // 标题栏和侧边栏
     private Toolbar toolbar;
     private DrawerLayout drawer;
+
+    private WebView newsWebView;
 
 
     //search view toolbar菜单栏搜索
@@ -59,7 +66,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     protected LocationManager locationManager;
     public static final int MY_PERMISSIONS_REQUEST_LOCATION_CODE = 1;
-    public static final int MY_PERMISSIONS_REQUEST_INTERNET_CODE = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,7 +78,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         locationTextByManager = (TextView) findViewById(R.id.textView222);
 
         //接受城市名字，并显示出来
-        toolbar.setTitle(city);
+        toolbar.setTitle(CITY);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(true);
 
@@ -87,8 +93,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.cebianlan_open, R.string.cebianlan_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
-    }
 
+        newsWebView = findViewById(R.id.newsWebview);
+    }
 
 
     @Override
@@ -97,9 +104,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         switch (item.getItemId()) {
             case R.id.night_mode:
                 int mode = getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
-                if (mode == Configuration.UI_MODE_NIGHT_YES){
+                if (mode == Configuration.UI_MODE_NIGHT_YES) {
                     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-                }else {
+                } else {
                     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
                 }
                 recreate();
@@ -144,11 +151,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 builder.setTitle("Choose City");
                 builder.setIcon(R.drawable.location);
                 final String itemsId[] = {"苏州", "无锡", "常州", "南京", "宿迁"};
-                final boolean []checkedItems=new boolean[]{false,false,false,false,false};
+                final boolean[] checkedItems = new boolean[]{false, false, false, false, false};
                 builder.setMultiChoiceItems(itemsId, checkedItems, new DialogInterface.OnMultiChoiceClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which, boolean isChecked) {
-                        checkedItems[which]=isChecked;
+                        checkedItems[which] = isChecked;
                     }
                 });
                 builder.setPositiveButton("Yes", null);
@@ -164,13 +171,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 dialog.getButton(DialogInterface.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Log.d("checkedItems", "checkedItems: "+checkedItems);
-                        String text="";
-                        boolean hasSelected=false;
-                        for(int i=0;i<itemsId.length;i++)
-                        {
-                            text+=checkedItems[i]?itemsId[i]+",":"";
-                            if (checkedItems[i]){
+                        Log.d("checkedItems", "checkedItems: " + checkedItems);
+                        String text = "";
+                        boolean hasSelected = false;
+                        for (int i = 0; i < itemsId.length; i++) {
+                            text += checkedItems[i] ? itemsId[i] + "," : "";
+                            if (checkedItems[i]) {
                                 hasSelected = checkedItems[i];
                                 toolbar.setTitle(itemsId[i]);
                                 break;
@@ -179,8 +185,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         if (hasSelected) {
                             Toast.makeText(MainActivity.this, "Submit Successfully！", Toast.LENGTH_SHORT).show();
                             dialog.dismiss();
-                        }
-                        else {
+                        } else {
                             Toast.makeText(MainActivity.this, "Need a choice！", Toast.LENGTH_SHORT).show();
                             return;
                         }
@@ -196,63 +201,60 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
 
+    // 获取定位
+    public void getLastKnownLocation(View view) {
 
-// 获取定位
-public void getLastKnownLocation(View view) {
 
+        Location location = null;
+        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        if (ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
 
-    Location location = null;
-    locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-    if (ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-
-        List<String> providers = locationManager.getProviders(true);
-        for (String provider : providers) {
-            Log.d("providers", provider);
-            Location l = locationManager.getLastKnownLocation(provider);
-            if (l == null) {
-                continue;
+            List<String> providers = locationManager.getProviders(true);
+            for (String provider : providers) {
+                Log.d("providers", provider);
+                Location l = locationManager.getLastKnownLocation(provider);
+                if (l == null) {
+                    continue;
+                }
+                if (location == null || l.getAccuracy() < location.getAccuracy()) {
+                    // Found best last known location: %s", l);
+                    location = l;
+                }
             }
-            if (location == null || l.getAccuracy() < location.getAccuracy()) {
-                // Found best last known location: %s", l);
-                location = l;
-            }
-        }
 
-        //location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+            //location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
 
-        if (location != null) {
+            if (location != null) {
 
 
-            String locationString = location.getLatitude() + "," +  location.getLongitude();
+                String locationString = location.getLatitude() + "," + location.getLongitude();
 
-            ConnectivityManager connMgr = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-            NetworkInfo networkInfo = null;
-            if (connMgr != null) {
-                networkInfo = connMgr.getActiveNetworkInfo();
-                if (networkInfo != null && networkInfo.isConnected()) {
-                    new FetchAddress(locationText).execute(locationString);
-                    toolbar.setTitle(locationText.getText().toString());
-                    drawer.closeDrawer(GravityCompat.START);
+                ConnectivityManager connMgr = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+                NetworkInfo networkInfo = null;
+                if (connMgr != null) {
+                    networkInfo = connMgr.getActiveNetworkInfo();
+                    if (networkInfo != null && networkInfo.isConnected()) {
+                        new FetchAddress(toolbar).execute(locationString);
+                        drawer.closeDrawer(GravityCompat.START);
+
+
+                    }
+
                 }
 
+
+            } else {
+                toolbar.setTitle("Need GPS!");
+                Toast.makeText(MainActivity.this, "Need GPS", Toast.LENGTH_SHORT).show();
+                drawer.closeDrawer(GravityCompat.START);
             }
-            //locationText.setText(NetworkUtils.getAddressByGeocoder(TempActivity.this, location));
 
 
-
-
-        }else{
-            toolbar.setTitle("Need GPS!");
-            Toast.makeText(MainActivity.this, "Need GPS!!！", Toast.LENGTH_SHORT).show();
+        } else {
+            requestLocationPermission();
             drawer.closeDrawer(GravityCompat.START);
         }
-
-
-    }else{
-        requestLocationPermission();
-        drawer.closeDrawer(GravityCompat.START);
     }
-}
 
     private void requestLocationPermission() {
         if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.ACCESS_FINE_LOCATION)) {
