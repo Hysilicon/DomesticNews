@@ -7,6 +7,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+/**
+ * webview的访问activity
+ */
 public class WebViewTemp extends AppCompatActivity implements View.OnClickListener{
     private Button btn_url,btn_html,btn_js;
 
