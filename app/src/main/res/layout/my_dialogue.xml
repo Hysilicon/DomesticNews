@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="200dp"
+    android:orientation="vertical"
+    android:gravity="center_horizontal"
+    android:background="@drawable/dialogue1"
+    android:layout_marginTop="150dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="64dp"
+        android:text="@string/mydialogue1"
+        android:textColor="@color/Red"
+        android:textSize="34dp"
+        android:textStyle="bold" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_margin="15dp">
+
+        <Button
+            android:id="@+id/yes1"
+            android:layout_width="80dp"
+            android:layout_height="50dp"
+            android:text="Yes" />
+        <Button
+            android:id="@+id/no1"
+            android:layout_width="80dp"
+            android:layout_height="50dp"
+            android:text="No" />
+
+
+
+
+
+    </LinearLayout>
+
+</LinearLayout>

@@ -8,7 +8,7 @@
         android:title="@string/xiabianlan_xinwen"
         app:showAsAction="ifRoom"/>
     <item
-        android:id="@+id/action_media"
+        android:id="@+id/action_mine"
         android:enabled="true"
         android:icon="@drawable/xiabianlan_me"
         android:title="@string/xiabianlan_me"

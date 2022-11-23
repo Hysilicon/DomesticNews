@@ -3,6 +3,7 @@ package com.example.domesticnews;
 import android.Manifest;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.location.Location;
@@ -33,7 +34,12 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.navigation.NavigationBarView;
 import com.google.android.material.navigation.NavigationView;
 
 import java.util.Date;
@@ -45,9 +51,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     // 标题栏和侧边栏
     private Toolbar toolbar;
     private DrawerLayout drawer;
-
-    private WebView newsWebView;
-
+    private TextView title;
 
     //search view toolbar菜单栏搜索
     SearchView.SearchAutoComplete mSearchAutoComplete;
@@ -67,6 +71,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     protected LocationManager locationManager;
     public static final int MY_PERMISSIONS_REQUEST_LOCATION_CODE = 1;
 
+    //下边栏监听
+    BottomNavigationView bottom_navigation;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -78,7 +86,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         locationTextByManager = (TextView) findViewById(R.id.textView222);
 
         //接受城市名字，并显示出来
-        toolbar.setTitle(CITY);
+        title = findViewById(R.id.title);
+        title.setText(CITY);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(true);
 
@@ -94,8 +103,50 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        newsWebView = findViewById(R.id.newsWebview);
+
+
+
+
+        //下边栏
+        bottom_navigation = findViewById(R.id.bottom_navigation);
+        //设置初始界面
+        bottom_navigation.setSelectedItemId(R.id.action_news);
+
+        //下边栏跳转
+        bottom_navigation = findViewById(R.id.bottom_navigation);
+        bottom_navigation.setSelectedItemId(R.id.action_news);
+        if (savedInstanceState == null) {
+            getSupportFragmentManager().beginTransaction().replace(R.id.container, new News_Fragment()).commit();
+        }
+        bottom_navigation.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                Fragment fragment = null;
+                switch (item.getItemId()) {
+                    case R.id.action_news:
+                        fragment = new News_Fragment();
+                        break;
+                    case R.id.action_mine:
+                        fragment = new Mine_Fragment();
+                        break;
+                }
+                getSupportFragmentManager().beginTransaction().replace(R.id.container, fragment).commit();
+                return true;
+            }
+        });
+
+
+
+
+
+
     }
+
+
+
+
+
+
 
 
     @Override
@@ -112,7 +163,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 recreate();
                 break;
             case R.id.rili:
-                Toast.makeText(this, riqi, Toast.LENGTH_SHORT).show();
+//                My_Dialogue m1 = new My_Dialogue(this);
+//                m1.show();
+                Toast.makeText(this, "Time:"+ riqi, Toast.LENGTH_SHORT).show();
                 break;
             case R.id.shijian:
                 Toast.makeText(this, shijian, Toast.LENGTH_SHORT).show();
@@ -143,6 +196,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         return super.onCreateOptionsMenu(menu);
     }
 
+
+    //toolbar 菜单栏
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -178,7 +233,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                             text += checkedItems[i] ? itemsId[i] + "," : "";
                             if (checkedItems[i]) {
                                 hasSelected = checkedItems[i];
-                                toolbar.setTitle(itemsId[i]);
+                                title.setText(itemsId[i]);
                                 break;
                             }
                         }
@@ -194,6 +249,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     }
                 });
                 break;
+            case R.id.toolbar_quit:
+                My_Dialogue m1 = new My_Dialogue(this,R.style.mydialogue);
+                m1.show();
         }
         return super.onOptionsItemSelected(item);
 
@@ -244,7 +302,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 
             } else {
-                toolbar.setTitle("Need GPS!");
+                title.setText("Need GPS!");
                 Toast.makeText(MainActivity.this, "Need GPS", Toast.LENGTH_SHORT).show();
                 drawer.closeDrawer(GravityCompat.START);
             }

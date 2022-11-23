@@ -22,4 +22,8 @@
 
     <!--    webview界面-->
     <string name="WebView">WebView界面示例</string>
+
+    <!--    对话框-->
+    <string name="mydialogue1"> Are you sure to quit?</string>
+
 </resources>
