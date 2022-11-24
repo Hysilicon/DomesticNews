@@ -1,8 +1,15 @@
 package com.example.domesticnews;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.location.Location;
 import android.os.AsyncTask;
 import android.util.Log;
+import android.webkit.JsResult;
+import android.webkit.WebChromeClient;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.TextView;
 
 import androidx.appcompat.widget.Toolbar;
@@ -15,17 +22,15 @@ import java.lang.ref.WeakReference;
 
 public class FetchAddress extends AsyncTask<String, Void, String> {
 
-    private WeakReference<Toolbar> toolbar;
 
-    public FetchAddress(Toolbar toolbar) {
-        this.toolbar = new WeakReference<>(toolbar);
+    private WeakReference<TextView> title;
+    private WeakReference<WebView> newsWebView;
+
+
+    public FetchAddress(TextView locationText, WebView webview) {
+        this.title = new WeakReference<>(locationText);
+        this.newsWebView = new WeakReference<>(webview);
     }
-
-//    private WeakReference<TextView> locationText;
-//
-//    public FetchAddress(TextView locationText) {
-//        this.locationText = new WeakReference<>(locationText);
-//    }
 
 
 
@@ -79,10 +84,20 @@ public class FetchAddress extends AsyncTask<String, Void, String> {
 
             if (formatted_address != null) {
 //                locationText.get().setText(formatted_address);
-                toolbar.get().setTitle(formatted_address);
+                title.get().setText(formatted_address);
+                String titleText = title.get().getText().toString();
+                Log.d("title text:", titleText);
+
+                newsWebView.get().setWebViewClient(new WebViewClient());
+                newsWebView.get().loadUrl("http://121.37.95.54:3001/news?address=" + titleText);
+                WebSettings webSettings = newsWebView.get().getSettings();
+                webSettings.setJavaScriptEnabled(true);
+
+
+
             } else {
 //                locationText.get().setText(R.string.no_results);
-                toolbar.get().setTitle(R.string.no_results);
+                title.get().setText(R.string.no_results);
             }
 
 

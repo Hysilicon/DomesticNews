@@ -29,6 +29,9 @@ public class NetworkUtils {
     private static final String LOCATION = "location";
 
     private static final String API_KEY = "ak";
+    private static final String BASE_URL_NEWS = "http://121.37.95.54:3001/newsforjson?";
+    private static final String ADDRESS = "address";
+
 
 
     static String getAddress(String location){
@@ -39,6 +42,65 @@ public class NetworkUtils {
         Uri builtURI = Uri.parse(BASE_URL).buildUpon().appendQueryParameter(QUERY_OUTPUT, "json")
                 .appendQueryParameter(LOCATION, location)
                 .appendQueryParameter(API_KEY, "esNPFDwwsXWtsQfw4NMNmur1")
+                .build();
+
+        try {
+            //...
+            String reqURL = builtURI.toString().replace("%2C", ",");
+            reqURL = URLDecoder.decode(reqURL, "UTF-8");
+            URL requestURL = new URL(reqURL);
+            Log.d(LOG_TAG, reqURL);
+            urlConnection = (HttpURLConnection) requestURL.openConnection();
+            urlConnection.setRequestMethod("GET");
+            urlConnection.connect();
+
+            InputStream inputStream = urlConnection.getInputStream();
+            reader = new BufferedReader(new InputStreamReader(inputStream));
+
+            StringBuilder builder = new StringBuilder();
+
+            String line;
+            while ((line = reader.readLine()) != null) {
+                builder.append(line);
+                // Since it's JSON, adding a newline isn't necessary (it won't
+                // affect parsing) but it does make debugging a *lot* easier
+                // if you print out the completed buffer for debugging.
+                builder.append("\n");
+            }
+            if (builder.length() == 0) {
+                // Stream was empty. No point in parsing.
+                return null;
+            }
+            addressJsonString = builder.toString();
+
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            //...
+            if (urlConnection != null) {
+                urlConnection.disconnect();
+            }
+            if (reader != null) {
+                try {
+                    reader.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        return addressJsonString;
+
+
+    }
+
+    static String getNews(String address){
+        HttpURLConnection urlConnection = null;
+        BufferedReader reader = null;
+        String addressJsonString = null;
+
+        Uri builtURI = Uri.parse(BASE_URL_NEWS).buildUpon().appendQueryParameter(ADDRESS, address)
                 .build();
 
         try {

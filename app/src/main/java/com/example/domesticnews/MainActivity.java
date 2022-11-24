@@ -12,6 +12,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -52,6 +53,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private Toolbar toolbar;
     private DrawerLayout drawer;
     private TextView title;
+
+    private WebView newsWebView;
 
     //search view toolbar菜单栏搜索
     SearchView.SearchAutoComplete mSearchAutoComplete;
@@ -104,9 +107,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         toggle.syncState();
 
 
-
-
-
         //下边栏
         bottom_navigation = findViewById(R.id.bottom_navigation);
         //设置初始界面
@@ -129,8 +129,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     case R.id.action_mine:
                         fragment = new Mine_Fragment();
                         break;
-                    case R.id.action_mine1:
-                        fragment = new Mine_Fragment2();
                 }
                 getSupportFragmentManager().beginTransaction().replace(R.id.container, fragment).commit();
                 return true;
@@ -138,17 +136,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         });
 
 
-
-
-
-
     }
-
-
-
-
-
-
 
 
     @Override
@@ -167,7 +155,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.rili:
 //                My_Dialogue m1 = new My_Dialogue(this);
 //                m1.show();
-                Toast.makeText(this, "Time:"+ riqi, Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Time:" + riqi, Toast.LENGTH_SHORT).show();
                 break;
             case R.id.shijian:
                 Toast.makeText(this, shijian, Toast.LENGTH_SHORT).show();
@@ -252,7 +240,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 });
                 break;
             case R.id.toolbar_quit:
-                My_Dialogue m1 = new My_Dialogue(this,R.style.mydialogue);
+                My_Dialogue m1 = new My_Dialogue(this, R.style.mydialogue);
                 m1.show();
         }
         return super.onOptionsItemSelected(item);
@@ -294,13 +282,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 if (connMgr != null) {
                     networkInfo = connMgr.getActiveNetworkInfo();
                     if (networkInfo != null && networkInfo.isConnected()) {
-                        new FetchAddress(toolbar).execute(locationString);
-                        drawer.closeDrawer(GravityCompat.START);
+                        newsWebView = findViewById(R.id.newsWebview);
+                        new FetchAddress(title, newsWebView).execute(locationString);
 
 
                     }
 
                 }
+
 
 
             } else {
@@ -338,5 +327,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     }
 
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        // Check if the key event was the Back button and if there's history
+        if ((keyCode == KeyEvent.KEYCODE_BACK) && newsWebView.canGoBack()) {
+            newsWebView.goBack();
+            return true;
+        }
+        // If it wasn't the Back key or there's no web page history, bubble up to the default
+        // system behavior (probably exit the activity)
+        return super.onKeyDown(keyCode, event);
+    }
 
 }
