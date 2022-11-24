@@ -7,13 +7,15 @@ import android.view.View;
 import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 public class StartActivity extends AppCompatActivity {
 
-    private static int time_out = 1500;
+    //动画的时间
+    private static int time_out = 3000;
 
     //anim 动画
     Animation top,buttom,middle;
@@ -21,6 +23,9 @@ public class StartActivity extends AppCompatActivity {
     //动画组件
     View l1,l2,l3,l4,l5,l6;
     TextView title,sbuttom;
+
+    //skip按钮
+    Button skip;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +47,7 @@ public class StartActivity extends AppCompatActivity {
         l6 = findViewById(R.id.Line6);
         title = findViewById(R.id.starttitle);
         sbuttom = findViewById(R.id.startbuttom);
+        skip = findViewById(R.id.skip);
 
         l1.setAnimation(top);
         l2.setAnimation(top);
@@ -53,14 +59,33 @@ public class StartActivity extends AppCompatActivity {
         title.setAnimation(middle);
         sbuttom.setAnimation(buttom);
 
-        //跳转到主页
-        new Handler().postDelayed(new Runnable() {
+        //skip操作
+        skip.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void run() {
+            public void onClick(View v) {
                 Intent intent = new Intent(StartActivity.this,MainActivity.class);
                 startActivity(intent);
                 finish();
             }
-        },time_out);
+
+        });
+
+        //判断是否点击skip按钮，如果没用，则等到时间结束自动跳转到主页
+        if(isFinishing() == true){
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    Intent intent = new Intent(StartActivity.this,MainActivity.class);
+                    startActivity(intent);
+                    finish();
+                }
+            },time_out);
+
+        }
+
 }
+
+
+
+
     }

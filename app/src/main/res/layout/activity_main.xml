@@ -64,14 +64,29 @@
             android:layout_height="wrap_content"
             android:visibility="invisible" />
 
-        <Button
-            android:id="@+id/button"
-            android:layout_width="200dp"
-            android:layout_height="wrap_content"
-            android:onClick="getLastKnownLocation"
-            android:text="Get Location"
-            android:layout_marginTop="500dp"
-            android:layout_marginLeft="50dp"/>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <Button
+                android:id="@+id/button"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="324dp"
+                android:onClick="getLastKnownLocation"
+                android:text="Get Location"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHeight_percent=".8"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.72"
+                app:layout_constraintWidth_percent="1" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
     </com.google.android.material.navigation.NavigationView>
 
 </androidx.drawerlayout.widget.DrawerLayout>

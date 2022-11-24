@@ -129,6 +129,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     case R.id.action_mine:
                         fragment = new Mine_Fragment();
                         break;
+                    case R.id.action_mine1:
+                        fragment = new Mine_Fragment2();
                 }
                 getSupportFragmentManager().beginTransaction().replace(R.id.container, fragment).commit();
                 return true;
