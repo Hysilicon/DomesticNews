@@ -17,12 +17,9 @@ public class News_Fragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @NonNull ViewGroup container, @NonNull Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_news,container,false);
+        newsWebView = view.findViewById(R.id.newsWebview);
         return view;
 
     }
 
-    @Override
-    public void onViewCreated(View view,Bundle savedInstanceState){
-        newsWebView = view.findViewById(R.id.newsWebview);
-    }
 }

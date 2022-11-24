@@ -4,6 +4,7 @@
     <!--    下边栏-->
     <string name="xiabianlan_xinwen">News</string>
     <string name="xiabianlan_me">Mine</string>
+    <string name="xiabianlan_me1">Register</string>
 
     <!--    侧边栏-->
     <string name="cebianlan_item1">Switch Mode</string>
@@ -25,5 +26,19 @@
 
     <!--    对话框-->
     <string name="mydialogue1"> Are you sure to quit?</string>
+
+    <!--    mine界面-->
+    <string name="mine1">Email</string>
+    <string name="mine2">PassWord</string>
+    <string name="mine3">Login</string>
+    <string name="mine4">Forget password</string>
+    <string name="mine5">UserName</string>
+    <string name="mine6">Register</string>
+    <string name="mine7">Confirm the PassWord</string>
+
+<!--    tablayout-->
+    <string name="tab1">Login</string>
+    <string name="tab2">Register</string>
+
 
 </resources>

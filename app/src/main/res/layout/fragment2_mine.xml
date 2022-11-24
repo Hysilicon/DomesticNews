@@ -5,23 +5,7 @@
     android:layout_height="match_parent">
 
     <EditText
-        android:id="@+id/password1"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:background="@drawable/edit_text1"
-        android:hint="@string/mine2"
-        android:paddingLeft="19dp"
-        android:paddingTop="9dp"
-        android:paddingBottom="9dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.388"
-        app:layout_constraintWidth_percent=".8" />
-
-    <EditText
-        android:id="@+id/email1"
+        android:id="@+id/email2"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="19dp"
@@ -34,15 +18,64 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.197"
+        app:layout_constraintVertical_bias="0.144"
+        app:layout_constraintWidth_percent=".8" />
+
+    <EditText
+        android:id="@+id/password2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/edit_text1"
+        android:hint="@string/mine2"
+        android:paddingLeft="19dp"
+        android:paddingTop="9dp"
+        android:paddingBottom="9dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.425"
+        app:layout_constraintWidth_percent=".8" />
+
+    <EditText
+        android:id="@+id/username2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="19dp"
+        android:background="@drawable/edit_text1"
+        android:hint="@string/mine5"
+        android:paddingLeft="19dp"
+        android:paddingTop="9dp"
+        android:paddingBottom="9dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.273"
+        app:layout_constraintWidth_percent=".8" />
+
+    <EditText
+        android:id="@+id/cpass"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/edit_text1"
+        android:hint="@string/mine7"
+        android:paddingLeft="19dp"
+        android:paddingTop="9dp"
+        android:paddingBottom="9dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.557"
         app:layout_constraintWidth_percent=".8" />
 
     <Button
-        android:id="@+id/login"
+        android:id="@+id/register"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="@drawable/button1"
-        android:text="@string/mine3"
+        android:text="@string/mine6"
         android:textColor="@color/Red"
         android:textSize="20sp"
         android:textStyle="bold"
@@ -50,22 +83,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.683"
+        app:layout_constraintVertical_bias="0.72"
         app:layout_constraintWidth_percent=".8" />
-
-    <TextView
-        android:id="@+id/forgetpass"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:layout_marginRight="4dp"
-        android:text="@string/mine4"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.911"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.497" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
