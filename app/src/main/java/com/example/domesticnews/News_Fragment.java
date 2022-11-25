@@ -10,6 +10,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+/**
+ * show webpage
+ */
 public class News_Fragment extends Fragment {
     private WebView newsWebView;
 

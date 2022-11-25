@@ -17,6 +17,9 @@ import java.net.URLDecoder;
 import java.util.List;
 import java.util.Locale;
 
+/**
+ * Network layer, mainly to obtain the specific address
+ */
 public class NetworkUtils {
 
     private static final String LOG_TAG =

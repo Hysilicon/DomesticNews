@@ -15,6 +15,10 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.tabs.TabLayout;
 
+/**
+ * log in page
+ * item: email,password
+ */
 public class Mine_Fragment extends Fragment {
     EditText email,password;
     TextView forgetpass;

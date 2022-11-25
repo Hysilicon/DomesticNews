@@ -19,7 +19,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.lang.ref.WeakReference;
-
+//异步任务
+//Asynchronous task
 public class FetchAddress extends AsyncTask<String, Void, String> {
 
 
@@ -38,7 +39,8 @@ public class FetchAddress extends AsyncTask<String, Void, String> {
     protected String doInBackground(String... strings) {
         return NetworkUtils.getAddress(strings[0]);
     }
-
+//加载地址对应的URL
+//Load the URL corresponding to the address
     @Override
     protected void onPostExecute(String s) {
 
@@ -65,6 +67,8 @@ public class FetchAddress extends AsyncTask<String, Void, String> {
 //        }
 //        }
 
+//在接口层更新UI，即更新webview
+//Update the UI at the interface layer and update the webview here
         super.onPostExecute(s);
         try {
             //...

@@ -5,7 +5,9 @@ import android.content.Context;
 import android.view.View;
 
 import androidx.annotation.NonNull;
-
+/**
+ * quit Popup window
+ */
 public class My_Dialogue extends Dialog {
 
 

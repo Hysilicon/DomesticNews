@@ -12,6 +12,9 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+/**
+ * Open screen animation
+ */
 public class StartActivity extends AppCompatActivity {
 
     //动画的时间

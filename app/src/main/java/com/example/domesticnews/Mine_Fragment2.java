@@ -10,7 +10,10 @@ import android.widget.EditText;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-
+/**
+ * register page
+ * item: email,password,confirmPassword,username,
+ */
 public class Mine_Fragment2 extends Fragment {
     EditText email,password,cpassword,username;
     Button register;
