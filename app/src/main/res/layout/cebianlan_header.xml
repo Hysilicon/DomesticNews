@@ -21,7 +21,7 @@
         android:layout_height="74dp"
         android:layout_gravity="bottom|start"
         android:layout_margin="30sp"
-        android:text="游客"
+        android:text="User"
         android:textSize="50sp"
         android:textStyle="bold" />
 
