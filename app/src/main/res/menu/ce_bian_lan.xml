@@ -17,7 +17,7 @@
                 android:title="@string/cebianlan_item5" />
             <item
                 android:id="@+id/shijian"
-                android:icon="@drawable/rili"
+                android:icon="@drawable/shijian"
                 android:title="@string/cebianlan_item6" />
         </menu>
     </item>

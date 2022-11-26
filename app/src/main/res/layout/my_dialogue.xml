@@ -24,12 +24,14 @@
 
         <Button
             android:id="@+id/yes1"
-
+            android:background="@drawable/ynbtn"
             android:layout_width="80dp"
             android:layout_height="50dp"
             android:text="Yes" />
         <Button
             android:id="@+id/no1"
+            android:background="@drawable/ynbtn"
+            android:layout_marginLeft="60dp"
             android:layout_width="80dp"
             android:layout_height="50dp"
             android:text="No" />

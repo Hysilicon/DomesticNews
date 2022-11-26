@@ -168,8 +168,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 recreate();
                 break;
             case R.id.rili:
-//                My_Dialogue m1 = new My_Dialogue(this);
-//                m1.show();
                 Toast.makeText(this, "Time:" + riqi, Toast.LENGTH_SHORT).show();
                 break;
             case R.id.shijian:
