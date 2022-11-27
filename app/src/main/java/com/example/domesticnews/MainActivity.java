@@ -71,6 +71,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     String riqi = allshijian.split(" ")[1] + " " + allshijian.split(" ")[2] + " " + allshijian.split(" ")[5];
     String shijian = allshijian.split(" ")[3];
 
+
+
     //获取定位
     //get loaction
     TextView locationText;
@@ -101,6 +103,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         title.setText(CITY);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(true);
+
 
         //监听侧边栏
         //listen the sidebar

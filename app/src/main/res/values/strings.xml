@@ -26,6 +26,11 @@
 
     <!--    对话框-->
     <string name="mydialogue1"> Are you sure to quit?</string>
+    <string name="b1">Yes</string>
+    <string name="b2">No</string>
+    <string name="b3">Ok</string>
+
+
 
     <!--    mine界面-->
     <string name="mine1">Email</string>

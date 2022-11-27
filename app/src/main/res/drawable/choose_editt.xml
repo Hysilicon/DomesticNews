@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+<!--    当输入框被选中时，进行的变化-->
+    <item android:state_enabled="true" android:state_focused="true">
+        <shape android:shape="rectangle">
+            <solid android:color="@color/white"/>
+                <corners android:radius="10dp"/>
+            <stroke android:color="@color/Black" android:width="1dp"/>
+
+        </shape>
+    </item>
+
+    <!--    当输入框未被选中时，进行的变化-->
+    <item android:state_enabled="true">
+        <shape android:shape="rectangle">
+            <solid android:color="@color/white"/>
+            <corners android:radius="10dp"/>
+            <stroke android:color="@color/Blue" android:width="1dp"/>
+
+        </shape>
+    </item>
+</selector>

@@ -4,14 +4,15 @@
     android:layout_height="200dp"
     android:orientation="vertical"
     android:gravity="center_horizontal"
-    android:background="@drawable/dialogue1"
+    android:background="@drawable/my_dialogue2"
     android:layout_marginTop="150dp">
 
     <TextView
+        android:id="@+id/shijiantext"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="64dp"
-        android:text="@string/mydialogue1"
+        android:text=" "
         android:textColor="@color/Red"
         android:textSize="34dp"
         android:textStyle="bold" />
@@ -23,22 +24,11 @@
         android:layout_margin="15dp">
 
         <Button
-            android:id="@+id/yes1"
+            android:id="@+id/ok1"
             android:background="@drawable/ynbtn"
             android:layout_width="80dp"
             android:layout_height="50dp"
-            android:text="@string/b1" />
-        <Button
-            android:id="@+id/no1"
-            android:background="@drawable/ynbtn"
-            android:layout_marginLeft="60dp"
-            android:layout_width="80dp"
-            android:layout_height="50dp"
-            android:text="@string/b2" />
-
-
-
-
+            android:text="@string/b3" />
 
     </LinearLayout>
 
