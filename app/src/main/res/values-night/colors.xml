@@ -13,6 +13,9 @@
     <color name="colorAccent">#010101</color>
     <color name="textColorPrimary">#616161</color>
     <color name="viewBackground">@color/Grey300</color>
+    <color name="cebianlan_button">@color/Grey700</color>
+    <color name="cebianlan_buttontext">@color/Grey500</color>
+    <color name="tabcolor">@color/Grey500</color>
     <color name="windowBackground">@color/Grey100</color>
     <color name="line_divider">@color/Grey300</color>
 

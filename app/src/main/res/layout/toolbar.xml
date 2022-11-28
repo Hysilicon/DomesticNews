@@ -21,6 +21,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:textSize="15dp"
+            android:textColor="@color/cebianlan_buttontext"
             android:textStyle="bold"/>
 
 
