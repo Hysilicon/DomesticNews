@@ -41,9 +41,6 @@
     <string name="mine6">Register</string>
     <string name="mine7">Confirm the PassWord</string>
 
-<!--    tablayout-->
-    <string name="tab1">Login</string>
-    <string name="tab2">Register</string>
 
 
 </resources>

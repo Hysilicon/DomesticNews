@@ -22,6 +22,7 @@
         android:layout_gravity="bottom|start"
         android:layout_margin="30sp"
         android:text="User"
+        android:textColor="@color/Grey300"
         android:textSize="50sp"
         android:textStyle="bold" />
 
