@@ -35,6 +35,10 @@ public class News_Fragment extends Fragment {
     private TabLayout tabLayout;
     private ViewPager2 viewPager;
 
+    private static News_Fragment instance = null;
+
+
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @NonNull ViewGroup container, @NonNull Bundle savedInstanceState) {
@@ -85,6 +89,13 @@ public class News_Fragment extends Fragment {
         public int getItemCount() {
             return fragmentArrayList.size();
         }
+    }
+
+    public static News_Fragment getInstance() {
+        if (instance == null) {
+            instance = new News_Fragment();
+        }
+        return instance;
     }
 
 

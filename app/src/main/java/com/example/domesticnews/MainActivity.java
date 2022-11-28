@@ -23,6 +23,7 @@ import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -89,11 +90,38 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     //Listen for activity in the lower column
     BottomNavigationView bottom_navigation;
 
+    //获取三个下边栏fragment
+    private News_Fragment news_fragment;
+    private Mine_Fragment mine_fragment;
+    private Mine_Fragment2 mine_fragment2;
+    private int position;
+    private static final String POSITION = "position";
+    private static final String SELECT_ITEM = "bottomNavigationSelectItem";
+    private static final int FRAGMENT_NEWS = 0;
+    private static final int FRAGMENT_Mine = 1;
+    private static final int FRAGMENT_Mine1 = 2;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        init();
+
+        if (savedInstanceState != null) {
+            //进入加载初始页面
+            showFragment(savedInstanceState.getInt(POSITION));
+            bottom_navigation.setSelectedItemId(savedInstanceState.getInt(SELECT_ITEM));
+        } else {
+            showFragment(FRAGMENT_NEWS);
+        }
+
+
+    }
+
+    private void init(){
+        //获取toolbar
         toolbar = findViewById(R.id.toolbar);
 
         //获取定位
@@ -133,27 +161,77 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         //lower bottom bar button activity
         bottom_navigation = findViewById(R.id.bottom_navigation);
         bottom_navigation.setSelectedItemId(R.id.action_news);
-        if (savedInstanceState == null) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.container, new News_Fragment()).commit();
-        }
+
         bottom_navigation.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 Fragment fragment = null;
+                FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+                hideFragment(ft);
                 switch (item.getItemId()) {
                     case R.id.action_news:
-                        fragment = new News_Fragment();
+                        showFragment(FRAGMENT_NEWS);
                         break;
                     case R.id.action_mine:
-                        fragment = new Mine_Fragment();
+                        showFragment(FRAGMENT_Mine);
                         break;
                     case R.id.action_mine1:
-                        fragment = new Mine_Fragment2();
+                        showFragment(FRAGMENT_Mine1);
                 }
-                getSupportFragmentManager().beginTransaction().replace(R.id.container, fragment).commit();
                 return true;
             }
         });
+
+    }
+
+
+    private void showFragment(int index){
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        hideFragment(ft);
+        position = index;
+        switch (index) {
+            case FRAGMENT_NEWS:
+                title.setText(CITY);
+                if (news_fragment == null) {
+                    news_fragment = news_fragment.getInstance();
+                    ft.add(R.id.container, news_fragment);
+                } else {
+                    ft.show(news_fragment);
+                }
+                break;
+            case FRAGMENT_Mine:
+                title.setText(R.string.mine3);
+                if (mine_fragment == null) {
+                    mine_fragment = mine_fragment.getInstance();
+                    ft.add(R.id.container, mine_fragment);
+                } else {
+                    ft.show(mine_fragment);
+                }
+                break;
+            case FRAGMENT_Mine1:
+                title.setText(R.string.mine6);
+                if (mine_fragment2 == null) {
+                    mine_fragment2 = mine_fragment2.getInstance();
+                    ft.add(R.id.container, mine_fragment2);
+                } else {
+                    ft.show(mine_fragment2);
+                }
+        }
+
+        ft.commit();
+
+    }
+    private void hideFragment(FragmentTransaction ft){
+        if (mine_fragment != null) {
+            ft.hide(mine_fragment);
+        }
+        if (mine_fragment2 != null) {
+            ft.hide(mine_fragment2);
+        }
+        if (news_fragment != null) {
+            ft.hide(news_fragment);
+        }
+    }
 
 
 
@@ -163,7 +241,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 //        }
 
 
-    }
+
 
 //    // Save state of web-view
 //    @Override

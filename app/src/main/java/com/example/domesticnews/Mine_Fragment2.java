@@ -19,6 +19,10 @@ public class Mine_Fragment2 extends Fragment {
     Button register;
     float a=0;
 
+    private static Mine_Fragment2 instance = null;
+
+
+
 
     @Nullable
     @Override
@@ -51,5 +55,13 @@ public class Mine_Fragment2 extends Fragment {
 
         return mine;
     }
+
+    public static Mine_Fragment2 getInstance() {
+        if (instance == null) {
+            instance = new Mine_Fragment2();
+        }
+        return instance;
+    }
+
 }
 

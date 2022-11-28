@@ -25,6 +25,9 @@ public class Mine_Fragment extends Fragment {
     Button login;
     float a=0;
 
+    private static Mine_Fragment instance = null;
+
+
 
     @Nullable
     @Override
@@ -55,6 +58,14 @@ public class Mine_Fragment extends Fragment {
 
 
     }
+
+    public static Mine_Fragment getInstance() {
+        if (instance == null) {
+            instance = new Mine_Fragment();
+        }
+        return instance;
+    }
+
 
 
 }
