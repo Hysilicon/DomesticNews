@@ -1,6 +1,7 @@
 package com.example.domesticnews;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -10,6 +11,7 @@ import android.location.Location;
 import android.location.LocationManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -43,6 +45,10 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 import com.google.android.material.navigation.NavigationView;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.lang.ref.WeakReference;
 import java.util.Date;
 import java.util.List;
 
@@ -55,14 +61,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private Toolbar toolbar;
     private DrawerLayout drawer;
     private TextView title;
-
     private WebView newsWebView;
 
     //菜单栏搜索
     //search view toolbar
     SearchView.SearchAutoComplete mSearchAutoComplete;
     SearchView mSearchView;
-    String TAG = "MainActivity";
+    String CURRENT_URL = "";
 
     //获取当前时间和日期
     //get time and date
@@ -70,7 +75,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     String allshijian = newDate.toString();
     String riqi = allshijian.split(" ")[1] + " " + allshijian.split(" ")[2] + " " + allshijian.split(" ")[5];
     String shijian = allshijian.split(" ")[3];
-
 
 
     //获取定位
@@ -119,7 +123,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-
         //下边栏
         //Lower bottom bar
         bottom_navigation = findViewById(R.id.bottom_navigation);
@@ -153,7 +156,24 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         });
 
 
+
+//        //Restore the state
+//        if (savedInstanceState != null) {
+//            newsWebView.restoreState(savedInstanceState.getBundle("webViewState"));
+//        }
+
+
     }
+
+//    // Save state of web-view
+//    @Override
+//    public void onSaveInstanceState(Bundle outState) {
+//        super.onSaveInstanceState(outState);
+//
+//        Bundle bundle = new Bundle();
+//        newsWebView.saveState(bundle);
+//        outState.putBundle("webViewState", bundle);
+//    }
 
 
     @Override
@@ -213,7 +233,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
                 builder.setTitle("Choose City");
                 builder.setIcon(R.drawable.location);
-                final String itemsId[] = {"苏州", "无锡", "常州", "南京", "宿迁"};
+                final String itemsId[] = {"姑苏区", "相城区", "虎丘区", "吴中区", "太仓市"};
                 final boolean[] checkedItems = new boolean[]{false, false, false, false, false};
                 builder.setMultiChoiceItems(itemsId, checkedItems, new DialogInterface.OnMultiChoiceClickListener() {
                     @Override
@@ -242,6 +262,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                             if (checkedItems[i]) {
                                 hasSelected = checkedItems[i];
                                 title.setText(itemsId[i]);
+                                newsWebView = findViewById(R.id.newsWebview);
+                                newsWebView.setWebViewClient(new WebViewClient());
+                                newsWebView.setWebChromeClient(new WebChromeClient());
+                                newsWebView.loadUrl("http://121.37.95.54:3001/news?address=" + itemsId[i]);
+                                WebSettings webSettings = newsWebView.getSettings();
+                                newsWebView.setVerticalScrollBarEnabled(true);
+                                webSettings.setJavaScriptEnabled(true);
+
                                 break;
                             }
                         }
@@ -300,14 +328,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 if (connMgr != null) {
                     networkInfo = connMgr.getActiveNetworkInfo();
                     if (networkInfo != null && networkInfo.isConnected()) {
-                        newsWebView = findViewById(R.id.newsWebview);
-                        new FetchAddress(title, newsWebView).execute(locationString);
+
+                        new FetchAddress().execute(locationString);
 
 
                     }
 
                 }
-
 
 
             } else {
@@ -355,6 +382,103 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         // If it wasn't the Back key or there's no web page history, bubble up to the default
         // system behavior (probably exit the activity)
         return super.onKeyDown(keyCode, event);
+    }
+
+    public class FetchAddress extends AsyncTask<String, Void, String> {
+
+
+//        private WeakReference<TextView> title;
+//        private WeakReference<WebView> newsWebView;
+//
+//
+//        public FetchAddress(TextView locationText, WebView webview) {
+//            this.title = new WeakReference<>(locationText);
+//            this.newsWebView = new WeakReference<>(webview);
+//        }
+
+
+        @Override
+        protected String doInBackground(String... strings) {
+            return NetworkUtils.getAddress(strings[0]);
+        }
+
+        //Load the URL corresponding to the address
+        @SuppressLint("SetJavaScriptEnabled")
+        @Override
+        protected void onPostExecute(String s) {
+
+//
+//        {
+//            "status":"OK",
+//                "result":{
+//            "location":{
+//                "lng":116.379763,
+//                        "lat":39.913542
+//            },
+//            "formatted_address":"北京市西城区复兴门内大街5号",
+//                    "business":"西单,宣武门,和平门",
+//                    "addressComponent":{
+//                "city":"北京市",
+//                        "direction":"near",
+//                        "distance":"45",
+//                        "district":"西城区",
+//                        "province":"北京市",
+//                        "street":"复兴门内大街",
+//                        "street_number":"5号"
+//            },
+//            "cityCode":131
+//        }
+//        }
+
+//Update the UI at the interface layer and update the webview here
+            super.onPostExecute(s);
+            try {
+                //...
+                JSONObject q = new JSONObject(s);
+                Log.d("Json", q.toString());
+                String formatted_address = null;
+
+
+                try {
+                    JSONObject result = q.getJSONObject("result");
+                    formatted_address = result.getJSONObject("addressComponent").getString("district");
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+
+                if (formatted_address != null) {
+//                locationText.get().setText(formatted_address);
+                    title.setText(formatted_address);
+                    String titleText = title.getText().toString();
+                    Log.d("title text:", titleText);
+
+                    newsWebView = findViewById(R.id.newsWebview);
+                    newsWebView.setWebViewClient(new WebViewClient());
+                    newsWebView.setWebChromeClient(new WebChromeClient());
+                    newsWebView.loadUrl("http://121.37.95.54:3001/news?address=" + titleText);
+                    WebSettings webSettings = newsWebView.getSettings();
+                    newsWebView.setVerticalScrollBarEnabled(true);
+                    webSettings.setJavaScriptEnabled(true);
+
+
+
+
+                } else {
+//                locationText.get().setText(R.string.no_results);
+                    title.setText(R.string.no_results);
+                }
+
+
+            } catch (JSONException e) {
+                // If onPostExecute does not receive a proper JSON string,
+                // update the UI to show failed results.
+//            locationText.get().setText(R.string.no_results);
+                e.printStackTrace();
+            }
+
+        }
     }
 
 }
