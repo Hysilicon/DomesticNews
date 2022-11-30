@@ -9,11 +9,14 @@
         <entry key="..\:/Users/umr/Downloads/DomesticNews/app/src/main/res/drawable-v24/setting.xml" value="0.1575" />
         <entry key="..\:/Users/umr/Downloads/DomesticNews/app/src/main/res/drawable-v24/xiabianlan_me.xml" value="0.1575" />
         <entry key="..\:/Users/umr/Downloads/DomesticNews/app/src/main/res/drawable-v24/xiabianlan_xinwen.xml" value="0.1575" />
+        <entry key="..\:/Users/umr/Downloads/DomesticNews/app/src/main/res/drawable/banner.xml" value="0.1" />
         <entry key="..\:/Users/umr/Downloads/DomesticNews/app/src/main/res/drawable/button1.xml" value="0.131" />
         <entry key="..\:/Users/umr/Downloads/DomesticNews/app/src/main/res/drawable/button2.xml" value="0.139" />
         <entry key="..\:/Users/umr/Downloads/DomesticNews/app/src/main/res/drawable/choose_editt.xml" value="0.1915" />
         <entry key="..\:/Users/umr/Downloads/DomesticNews/app/src/main/res/drawable/edit_text1.xml" value="0.1905" />
         <entry key="..\:/Users/umr/Downloads/DomesticNews/app/src/main/res/drawable/ic_launcher_background.xml" value="0.2775" />
+        <entry key="..\:/Users/umr/Downloads/DomesticNews/app/src/main/res/drawable/menu1.xml" value="0.1" />
+        <entry key="..\:/Users/umr/Downloads/DomesticNews/app/src/main/res/drawable/mine_page_header.xml" value="0.1705" />
         <entry key="..\:/Users/umr/Downloads/DomesticNews/app/src/main/res/drawable/minebackg.xml" value="0.16666666666666666" />
         <entry key="..\:/Users/umr/Downloads/DomesticNews/app/src/main/res/drawable/skip_button.xml" value="0.1915" />
         <entry key="..\:/Users/umr/Downloads/DomesticNews/app/src/main/res/drawable/xia_bian_lan_xuan_ze.xml" value="0.2775" />
@@ -30,6 +33,10 @@
         <entry key="..\:/Users/umr/Downloads/DomesticNews/app/src/main/res/layout/mainfragment_mine.xml" value="0.21203703703703702" />
         <entry key="..\:/Users/umr/Downloads/DomesticNews/app/src/main/res/layout/my_dialogue.xml" value="0.1" />
         <entry key="..\:/Users/umr/Downloads/DomesticNews/app/src/main/res/layout/my_dialogue2.xml" value="0.6" />
+        <entry key="..\:/Users/umr/Downloads/DomesticNews/app/src/main/res/layout/my_dialogue3.xml" value="0.28958333333333336" />
+        <entry key="..\:/Users/umr/Downloads/DomesticNews/app/src/main/res/layout/my_dialogue4.xml" value="0.22" />
+        <entry key="..\:/Users/umr/Downloads/DomesticNews/app/src/main/res/layout/my_dialogue5.xml" value="0.1" />
+        <entry key="..\:/Users/umr/Downloads/DomesticNews/app/src/main/res/layout/page_mine.xml" value="0.28854166666666664" />
         <entry key="..\:/Users/umr/Downloads/DomesticNews/app/src/main/res/layout/shijian_dialogue.xml" value="0.16666666666666666" />
         <entry key="..\:/Users/umr/Downloads/DomesticNews/app/src/main/res/layout/toolbar.xml" value="0.290625" />
         <entry key="..\:/Users/umr/Downloads/DomesticNews/app/src/main/res/menu/ce_bian_lan.xml" value="0.3333333333333333" />

@@ -26,6 +26,7 @@
 
     <!--    对话框-->
     <string name="mydialogue1"> Are you sure to quit?</string>
+    <string name="mydialogue2"> Are you sure to quit?</string>
     <string name="b1">Yes</string>
     <string name="b2">No</string>
     <string name="b3">Ok</string>
@@ -40,6 +41,21 @@
     <string name="mine5">UserName</string>
     <string name="mine6">Register</string>
     <string name="mine7">Confirm the PassWord</string>
+
+<!--    mind_page-->
+    <string name="t1">Welcome</string>
+    <string name="t2">Polarbear</string>
+    <string name="m1">Until Today</string>
+    <string name="m2">395032 Users</string>
+    <string name="m3">enjoy our service</string>
+    <string name="b11">300</string>
+    <string name="b22">gender: Male</string>
+    <string name="b33">Name: Peter</string>
+    <string name="b44">Inbox</string>
+    <string name="b55">setting</string>
+    <string name="b66">Complaint</string>
+    <string name="b77">Wait for develop</string>
+
 
 
 

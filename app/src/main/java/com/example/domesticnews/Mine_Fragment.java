@@ -1,5 +1,6 @@
 package com.example.domesticnews;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +12,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.tabs.TabLayout;
@@ -28,16 +31,16 @@ public class Mine_Fragment extends Fragment {
     private static Mine_Fragment instance = null;
 
 
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @NonNull ViewGroup container, @NonNull Bundle savedInstanceState) {
         ViewGroup mine = (ViewGroup) inflater.inflate(R.layout.fragment_mine,container,false);
+        ViewGroup mine_person = (ViewGroup) inflater.inflate(R.layout.page_mine,container,false);
 
         email= mine.findViewById(R.id.email1);
         password=mine.findViewById(R.id.password1);
         forgetpass = mine.findViewById(R.id.forgetpass);
-        login = mine.findViewById(R.id.login);
+        login = mine.findViewById(R.id.login1230);
 
         email.setTranslationY(800);
         password.setTranslationY(800);
@@ -53,6 +56,15 @@ public class Mine_Fragment extends Fragment {
         password.animate().translationY(0).alpha(1).setDuration(1000).setStartDelay(500).start();
         forgetpass.animate().translationY(0).alpha(1).setDuration(1000).setStartDelay(500).start();
         login.animate().translationY(0).alpha(1).setDuration(1000).setStartDelay(700).start();
+
+        login.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(),Mine_Page.class);
+                startActivity(intent);
+            }
+        });
+
 
         return mine;
 

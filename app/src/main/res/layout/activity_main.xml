@@ -36,7 +36,8 @@
             app:itemIconTint="@drawable/xia_bian_lan_xuan_ze"
             app:itemTextColor="@drawable/xia_bian_lan_xuan_ze"
             app:labelVisibilityMode="labeled"
-            app:menu="@menu/xia_bian_lan" />
+            app:menu="@menu/xia_bian_lan"
+            />
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
@@ -74,7 +75,7 @@
                 android:onClick="getLastKnownLocation"
                 android:text="Get Location"
                 android:textColor="@color/cebianlan_buttontext"
-                android:background="@drawable/button2"
+                android:background="@drawable/button1"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHeight_percent=".8"

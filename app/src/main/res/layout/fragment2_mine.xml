@@ -82,7 +82,7 @@
         android:id="@+id/register"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="@drawable/button2"
+        android:background="@drawable/button1"
         android:text="@string/mine6"
         android:textColor="@color/cebianlan_buttontext"
         android:textSize="20sp"

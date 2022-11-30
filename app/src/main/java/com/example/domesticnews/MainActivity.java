@@ -18,12 +18,11 @@ import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.webkit.JsResult;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import android.widget.FrameLayout;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -39,7 +38,6 @@ import androidx.core.content.ContextCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -49,7 +47,6 @@ import com.google.android.material.navigation.NavigationView;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.lang.ref.WeakReference;
 import java.util.Date;
 import java.util.List;
 
@@ -90,7 +87,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     //Listen for activity in the lower column
     BottomNavigationView bottom_navigation;
 
-    //获取三个下边栏fragment
+    //Get 3 buttom_nav fragment
     private News_Fragment news_fragment;
     private Mine_Fragment mine_fragment;
     private Mine_Fragment2 mine_fragment2;
@@ -110,7 +107,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         init();
 
         if (savedInstanceState != null) {
-            //进入加载初始页面
+            //Get the full class name of the 3 class to avoid fragment crush after using switch mode function
+            news_fragment = (News_Fragment) getSupportFragmentManager().findFragmentByTag(News_Fragment.class.getName());
+            mine_fragment = (Mine_Fragment) getSupportFragmentManager().findFragmentByTag(Mine_Fragment.class.getName());
+            mine_fragment2 = (Mine_Fragment2) getSupportFragmentManager().findFragmentByTag(Mine_Fragment2.class.getName());
+
+            //initialize when entering the app and prevent crashes due to no fragment
             showFragment(savedInstanceState.getInt(POSITION));
             bottom_navigation.setSelectedItemId(savedInstanceState.getInt(SELECT_ITEM));
         } else {
@@ -121,8 +123,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     private void init(){
-        //获取toolbar
+        //Get toolbar
         toolbar = findViewById(R.id.toolbar);
+
+
+
 
         //获取定位
         //get location button
@@ -194,7 +199,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 title.setText(CITY);
                 if (news_fragment == null) {
                     news_fragment = news_fragment.getInstance();
-                    ft.add(R.id.container, news_fragment);
+                    ft.add(R.id.container, news_fragment, News_Fragment.class.getName());
                 } else {
                     ft.show(news_fragment);
                 }
@@ -203,7 +208,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 title.setText(R.string.mine3);
                 if (mine_fragment == null) {
                     mine_fragment = mine_fragment.getInstance();
-                    ft.add(R.id.container, mine_fragment);
+                    ft.add(R.id.container, mine_fragment, Mine_Fragment.class.getName());
                 } else {
                     ft.show(mine_fragment);
                 }
@@ -212,7 +217,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 title.setText(R.string.mine6);
                 if (mine_fragment2 == null) {
                     mine_fragment2 = mine_fragment2.getInstance();
-                    ft.add(R.id.container, mine_fragment2);
+                    ft.add(R.id.container, mine_fragment2, Mine_Fragment2.class.getName());
                 } else {
                     ft.show(mine_fragment2);
                 }
@@ -231,6 +236,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         if (news_fragment != null) {
             ft.hide(news_fragment);
         }
+    }
+
+
+
+
+    //Still identifies the position of the buttom_navigation after using Switch_Mode
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putInt(POSITION, position);
+        outState.putInt(SELECT_ITEM, bottom_navigation.getSelectedItemId());
     }
 
 
@@ -371,6 +387,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 
     }
+
+
+
+
 
 
     // 获取定位

@@ -11,7 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="64dp"
-        android:text="@string/t2"
+        android:text="@string/b77"
         android:textColor="@color/Lime"
         android:textSize="34dp"
         android:textStyle="bold" />
@@ -26,7 +26,7 @@
     </LinearLayout>
 
     <Button
-        android:id="@+id/yes11"
+        android:id="@+id/yes11111"
         android:layout_width="34dp"
         android:layout_height="16dp"
         android:layout_marginTop="40dp"

@@ -18,7 +18,7 @@ import androidx.appcompat.app.AppCompatActivity;
 public class StartActivity extends AppCompatActivity {
 
     //动画的时间
-    private static int time_out = 3000;
+    private static int time_out = 1000;
 
     //anim 动画
     Animation top,buttom,middle;

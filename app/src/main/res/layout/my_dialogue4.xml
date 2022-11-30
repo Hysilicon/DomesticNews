@@ -4,16 +4,24 @@
     android:layout_height="200dp"
     android:orientation="vertical"
     android:gravity="center_horizontal"
-    android:background="@drawable/dialogue2"
+    android:background="@drawable/information"
     android:layout_marginTop="150dp">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="64dp"
-        android:text="@string/t2"
+        android:layout_marginTop="54dp"
+        android:text="@string/b22"
         android:textColor="@color/Lime"
-        android:textSize="34dp"
+        android:textSize="24dp"
+        android:textStyle="bold" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="14dp"
+        android:text="@string/b33"
+        android:textColor="@color/Lime"
+        android:textSize="24dp"
         android:textStyle="bold" />
 
     <LinearLayout
@@ -26,10 +34,10 @@
     </LinearLayout>
 
     <Button
-        android:id="@+id/yes11"
+        android:id="@+id/yes1111"
         android:layout_width="34dp"
         android:layout_height="16dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="0dp"
         android:background="@drawable/button1"
         android:text="@string/b1" />
 

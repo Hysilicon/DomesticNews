@@ -2,5 +2,5 @@
 <shape xmlns:android="http://schemas.android.com/apk/res/android">
 
     <corners android:radius="20dp"/>
-    <solid android:color="@color/Blue"/>
+    <solid android:color="@color/cebianlan_button"/>
 </shape>
