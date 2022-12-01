@@ -17,18 +17,21 @@ import androidx.appcompat.app.AppCompatActivity;
  */
 public class StartActivity extends AppCompatActivity {
 
-    //动画的时间
-    private static int time_out = 1000;
+    //time to end
+    private static int time_out = 3000;
 
-    //anim 动画
+    //anim
     Animation top,buttom,middle;
 
-    //动画组件
+    //anim control
     View l1,l2,l3,l4,l5,l6;
     TextView title,sbuttom;
 
-    //skip按钮
+    //skip button
     Button skip;
+
+    //boolen to avoid intent start twice
+    boolean isEndAnim = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,23 +69,29 @@ public class StartActivity extends AppCompatActivity {
         skip.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                isEndAnim = true;
                 Intent intent = new Intent(StartActivity.this,MainActivity.class);
                 startActivity(intent);
-                finish();
             }
 
         });
 
         //判断是否点击skip按钮，如果没用，则等到时间结束自动跳转到主页
-        if(isFinishing() == true){
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    Intent intent = new Intent(StartActivity.this,MainActivity.class);
-                    startActivity(intent);
-                    finish();
-                }
-            },time_out);
+        if(isFinishing() == false) {
+
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (isEndAnim == false) {
+                            Intent intent = new Intent(StartActivity.this, MainActivity.class);
+                            startActivity(intent);
+                            finish();
+                        }else {
+                            finish();
+                        }
+                    }
+                }, time_out);
+
 
         }
 

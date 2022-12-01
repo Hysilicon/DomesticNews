@@ -126,9 +126,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         //Get toolbar
         toolbar = findViewById(R.id.toolbar);
 
-
-
-
         //获取定位
         //get location button
         locationText = (TextView) findViewById(R.id.textView111);
