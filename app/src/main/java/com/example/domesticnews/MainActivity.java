@@ -256,15 +256,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 
 
-//    // Save state of web-view
-//    @Override
-//    public void onSaveInstanceState(Bundle outState) {
-//        super.onSaveInstanceState(outState);
-//
-//        Bundle bundle = new Bundle();
-//        newsWebView.saveState(bundle);
-//        outState.putBundle("webViewState", bundle);
-//    }
 
 
     @Override
@@ -450,7 +441,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 }
             }
 
-            //location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+//            location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+            Log.d("location", location.toString());
 
             if (location != null) {
 
@@ -472,8 +464,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 
             } else {
-                title.setText("Need GPS!");
-                Toast.makeText(MainActivity.this, "Need GPS", Toast.LENGTH_SHORT).show();
+                title.setText("Need GPS");
+                Toast.makeText(MainActivity.this, R.string.checkNetworkState, Toast.LENGTH_SHORT).show();
                 drawer.closeDrawer(GravityCompat.START);
             }
 
@@ -595,8 +587,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     WebSettings webSettings = newsWebView.getSettings();
                     newsWebView.setVerticalScrollBarEnabled(true);
                     webSettings.setJavaScriptEnabled(true);
-
-
 
 
                 } else {

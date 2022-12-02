@@ -43,7 +43,7 @@
     <string name="mine5">UserName</string>
     <string name="mine6">Register</string>
     <string name="mine7">Confirm the PassWord</string>
-
+    <string name="checkNetworkState">Update failed, please check your network state</string>
 <!--    mind_page-->
     <string name="t1">Welcome</string>
     <string name="t2">Polarbear</string>
