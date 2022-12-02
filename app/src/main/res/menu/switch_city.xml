@@ -3,22 +3,42 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.reality.realityapp.ui.activity.MainActivity">
+
     <item
-        android:id="@+id/toolbar_quit"
-        android:icon="@drawable/tuichu"
-        android:orderInCategory="160"
+        android:id="@+id/main_menu"
+        android:icon="@drawable/menu"
+        android:orderInCategory="10"
         android:imeOptions="actionSearch"
-        android:title="Quit"
-        app:showAsAction="always"
-        />
+        android:title="menu"
+        app:showAsAction="always">
+        <menu>
+            <item
+                android:id="@+id/toolbar_quit"
+                android:icon="@drawable/tuichu"
+                android:orderInCategory="160"
+                android:imeOptions="actionSearch"
+                android:title="Quit"
+                app:showAsAction="never"
+                />
+
+            <item
+                android:id="@+id/toolbar_fixed_switch_mode"
+                android:orderInCategory="60"
+                android:icon="@drawable/night_mode1"
+                android:title="Fixed Day/Night mode"
+                app:showAsAction="never"
+                />
+
+
+        </menu>
+    </item>
+
     <item
         android:id="@+id/toolbar_switch_city"
-        android:orderInCategory="80"
+        android:orderInCategory="1"
         android:icon="@drawable/toolbar_switch_city"
         android:imeOptions="actionSearch"
         android:title="Switch city"
         app:showAsAction="always"
         />
-
-
 </menu>

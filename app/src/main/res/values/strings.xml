@@ -9,6 +9,8 @@
     <!--    侧边栏-->
     <string name="cebianlan_item1">Switch Mode</string>
     <string name="cebianlan_item2">Get location</string>
+    <string name="cebianlan_item3">Auto switch Mode(Open)</string>
+    <string name="cebianlan_item4">Auto switch Mode(Closed)</string>
     <string name="cebianlan_item5">Data</string>
     <string name="cebianlan_item6">Time</string>
 
@@ -26,7 +28,7 @@
 
     <!--    对话框-->
     <string name="mydialogue1"> Are you sure to quit?</string>
-    <string name="mydialogue2"> Are you sure to quit?</string>
+    <string name="mydialogue6"> switch mode to the correct standard (night mode is required from 22:00 to 6:00, other times are day mode) </string>
     <string name="b1">Yes</string>
     <string name="b2">No</string>
     <string name="b3">Ok</string>

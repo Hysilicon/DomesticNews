@@ -2,6 +2,7 @@ package com.example.domesticnews;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.content.ClipData;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -47,6 +48,7 @@ import com.google.android.material.navigation.NavigationView;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -99,6 +101,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private static final int FRAGMENT_Mine1 = 2;
 
 
+    boolean auto_switch = false;
+    Button yes;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -119,25 +123,21 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             showFragment(FRAGMENT_NEWS);
         }
 
-
     }
 
     private void init(){
         //Get toolbar
         toolbar = findViewById(R.id.toolbar);
 
-        //获取定位
         //get location button
         locationText = (TextView) findViewById(R.id.textView111);
         locationTextByManager = (TextView) findViewById(R.id.textView222);
 
-        //接受城市名字，并显示出来
         //show city
         title = findViewById(R.id.title);
         title.setText(CITY);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(true);
-
 
         //监听侧边栏
         //listen the sidebar
@@ -293,6 +293,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         return true;
     }
 
+
+
+
     //侧边栏按钮打开侧边
     //click button to open the sidebar
     public void OnBackPressed() {
@@ -379,10 +382,46 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.toolbar_quit:
                 My_Dialogue m1 = new My_Dialogue(this, R.style.mydialogue);
                 m1.show();
+            case R.id.toolbar_fixed_switch_mode:
+                My_Dialogue6 m6 = new My_Dialogue6(this,R.style.mydialogue);
+                m6.show();
+                yes = m6.findViewById(R.id.yes111111);
+                yes.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        auto_switch_mode();
+                        m6.dismiss();
+                    }
+                });
+
         }
+
         return super.onOptionsItemSelected(item);
 
 
+    }
+
+    //auto_switch_mode
+    //during 22:00-6:00, app will turn night mode automatically, otherwise it will turn day mode
+    private void auto_switch_mode(){
+        int nightStartHour = 22;
+        int nightStartMinute = 00;
+        int dayStartHour = 06;
+        int dayStartMinute = 00;
+
+        Calendar calendar = Calendar.getInstance();
+        int currentHour = calendar.get(Calendar.HOUR_OF_DAY);
+        int currentMinute = calendar.get(Calendar.MINUTE);
+
+        int nightValue = nightStartHour * 60 + nightStartMinute;
+        int dayValue = dayStartHour * 60 + dayStartMinute;
+        int currentValue = currentHour * 60 + currentMinute;
+
+        if (currentValue >= nightValue || currentValue <= dayValue) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        } else {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        }
     }
 
 
