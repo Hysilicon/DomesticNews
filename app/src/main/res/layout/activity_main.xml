@@ -38,7 +38,6 @@
             app:itemIconTint="@drawable/xia_bian_lan_xuan_ze"
             app:itemTextColor="@drawable/xia_bian_lan_xuan_ze"
             app:labelVisibilityMode="labeled"
-            app:layout_behavior=".ButtonNavBehavior"
             app:menu="@menu/xia_bian_lan"
             />
 
