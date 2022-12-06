@@ -51,7 +51,9 @@
         android:layout_gravity="start"
         android:fitsSystemWindows="true"
         app:headerLayout="@layout/cebianlan_header"
-        app:menu="@menu/ce_bian_lan">
+        app:menu="@menu/ce_bian_lan"
+        app:itemTextColor="@color/cebianlan_item">
+
 
         <TextView
             android:id="@+id/textView111"

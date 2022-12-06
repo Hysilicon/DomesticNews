@@ -364,6 +364,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.toolbar_quit:
                 My_Dialogue m1 = new My_Dialogue(this, R.style.mydialogue);
                 m1.show();
+                break;
             case R.id.toolbar_fixed_switch_mode:
                 My_Dialogue6 m6 = new My_Dialogue6(this, R.style.mydialogue);
                 m6.show();

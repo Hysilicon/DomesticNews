@@ -1,43 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
+    android:layout_width="400dp"
     android:layout_height="200dp"
-    android:orientation="vertical"
+    android:layout_marginTop="100dp"
+    android:background="@android:drawable/editbox_background"
     android:gravity="center_horizontal"
-    android:background="@drawable/dialogue1"
-    android:layout_marginTop="150dp">
+    android:orientation="vertical">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="64dp"
+        android:layout_marginStart="11dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="3dp"
         android:text="@string/mydialogue6"
-        android:textColor="@color/Red"
-        android:textSize="14dp"
+        android:textColor="@color/Black"
+        android:textSize="16dp"
         android:textStyle="bold" />
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_margin="15dp">
+        android:layout_margin="15dp"
+        android:orientation="horizontal">
 
         <Button
             android:id="@+id/yes111111"
-            android:background="@drawable/ynbtn"
-            android:layout_width="80dp"
+            android:layout_width="90dp"
             android:layout_height="50dp"
-            android:text="@string/b1" />
+            android:layout_marginTop="10dp"
+            android:background="@android:drawable/editbox_background"
+            android:text="@string/b1"
+            android:textColor="#090909" />
+
         <Button
             android:id="@+id/no111111"
-            android:background="@drawable/ynbtn"
-            android:layout_marginLeft="60dp"
-            android:layout_width="80dp"
+            android:layout_width="90dp"
             android:layout_height="50dp"
-            android:text="@string/b2" />
-
-
-
+            android:layout_marginLeft="60dp"
+            android:layout_marginTop="10dp"
+            android:background="@android:drawable/editbox_background"
+            android:text="@string/b2"
+            android:textColor="#090909" />
 
 
     </LinearLayout>

@@ -28,7 +28,7 @@
 
     <!--    对话框-->
     <string name="mydialogue1"> Are you sure to quit?</string>
-    <string name="mydialogue6"> switch mode to the correct standard (night mode is required from 22:00 to 6:00, other times are day mode) </string>
+    <string name="mydialogue6"> Switch mode to the correct standard (night mode is required from 22:00 to 6:00, other times are day mode) </string>
     <string name="b1">Yes</string>
     <string name="b2">No</string>
     <string name="b3">Ok</string>
