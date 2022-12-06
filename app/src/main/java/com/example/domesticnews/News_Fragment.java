@@ -90,7 +90,7 @@ public class News_Fragment extends Fragment {
                         .setContentTitle("News Notification")
                         .setContentText(TITLES[index])
                         .setWhen(System.currentTimeMillis())
-                        .setSmallIcon(R.mipmap.ic_launcher)
+                        .setSmallIcon(android.R.drawable.ic_dialog_info)
                         .build();
                 // 2. 获取系统的通知管理器
                 NotificationManager notificationManager = (NotificationManager) getActivity().getSystemService(NOTIFICATION_SERVICE);

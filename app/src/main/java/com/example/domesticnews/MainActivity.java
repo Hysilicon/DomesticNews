@@ -53,8 +53,10 @@ import java.util.Date;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+
     //city name
     private final String CITY = "City";
+
     //Title bar and sidebar
     private Toolbar toolbar;
     private DrawerLayout drawer;
@@ -82,7 +84,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     protected LocationManager locationManager;
     public static final int MY_PERMISSIONS_REQUEST_LOCATION_CODE = 1;
-
 
     //Listen for activity in the lower column
     BottomNavigationView bottom_navigation;
@@ -123,7 +124,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     }
 
-    private void init(){
+    private void init() {
         //Get toolbar
         toolbar = findViewById(R.id.toolbar);
 
@@ -141,6 +142,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         //listen the sidebar
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
         toolbar.inflateMenu(R.menu.switch_city);
 
 
@@ -153,7 +155,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         //Lower bottom bar
         bottom_navigation = findViewById(R.id.bottom_navigation);
-        //set up the initial view
+
         bottom_navigation.setSelectedItemId(R.id.action_news);
 
 
@@ -184,7 +186,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
 
-    private void showFragment(int index){
+    private void showFragment(int index) {
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         hideFragment(ft);
         position = index;
@@ -220,7 +222,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         ft.commit();
 
     }
-    private void hideFragment(FragmentTransaction ft){
+
+    private void hideFragment(FragmentTransaction ft) {
         if (mine_fragment != null) {
             ft.hide(mine_fragment);
         }
@@ -233,8 +236,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
 
-
-
     //Still identifies the position of the buttom_navigation after using Switch_Mode
     @Override
     protected void onSaveInstanceState(Bundle outState) {
@@ -244,18 +245,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
 
-
 //        //Restore the state
 //        if (savedInstanceState != null) {
 //            newsWebView.restoreState(savedInstanceState.getBundle("webViewState"));
 //        }
 
 
-
-
-
-
     @Override
+
     //click sidebar effect
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
@@ -282,8 +279,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 
 
-
-
     //click button to open the sidebar
     public void OnBackPressed() {
         if (drawer.isDrawerOpen(GravityCompat.START)) {
@@ -298,13 +293,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        //show the toolbar
+
         getMenuInflater().inflate(R.menu.switch_city, menu);
+
         //select city
         return super.onCreateOptionsMenu(menu);
     }
 
 
+    //toolbar
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -368,7 +365,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 My_Dialogue m1 = new My_Dialogue(this, R.style.mydialogue);
                 m1.show();
             case R.id.toolbar_fixed_switch_mode:
-                My_Dialogue6 m6 = new My_Dialogue6(this,R.style.mydialogue);
+                My_Dialogue6 m6 = new My_Dialogue6(this, R.style.mydialogue);
                 m6.show();
                 yes = m6.findViewById(R.id.yes111111);
                 yes.setOnClickListener(new View.OnClickListener() {
@@ -388,7 +385,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     //auto_switch_mode
     //during 22:00-6:00, app will turn night mode automatically, otherwise it will turn day mode
-    private void auto_switch_mode(){
+    private void auto_switch_mode() {
         int nightStartHour = 22;
         int nightStartMinute = 00;
         int dayStartHour = 06;
@@ -410,14 +407,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
 
-
-
-
-
-    // Get location
+    // Get last known location
     public void getLastKnownLocation(View view) {
 
 
+        Location defaultLocation = new Location("");
+        defaultLocation.setLatitude(31.278097d);
+        defaultLocation.setLongitude(120.744352d);
         Location location = null;
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         if (ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
@@ -435,8 +431,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 }
             }
 
-//            location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-//            Log.d("location", location.toString());
+//          location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+            //Log.d("location", location.toString());
 
             if (location != null) {
 
@@ -458,15 +454,29 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 
             } else {
-                title.setText("Need GPS");
-                Toast.makeText(MainActivity.this, R.string.checkNetworkState, Toast.LENGTH_SHORT).show();
-                drawer.closeDrawer(GravityCompat.START);
-            }
+                //title.setText(R.string.connectionFailed);
+                Toast.makeText(MainActivity.this, R.string.checkNetworkState, Toast.LENGTH_LONG).show();
+                String locationString = defaultLocation.getLatitude() + "," + defaultLocation.getLongitude();
 
+                ConnectivityManager connMgr = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+                NetworkInfo networkInfo = null;
+                if (connMgr != null) {
+                    networkInfo = connMgr.getActiveNetworkInfo();
+                    if (networkInfo != null && networkInfo.isConnected()) {
+
+                        new FetchAddress().execute(locationString);
+
+
+                    }
+
+                }
+
+//              drawer.closeDrawer(GravityCompat.START);
+            }
 
         } else {
             requestLocationPermission();
-            drawer.closeDrawer(GravityCompat.START);
+            //drawer.closeDrawer(GravityCompat.START);
         }
     }
 
@@ -503,6 +513,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         // system behavior (probably exit the activity)
         return super.onKeyDown(keyCode, event);
     }
+
 
     public class FetchAddress extends AsyncTask<String, Void, String> {
 

@@ -43,7 +43,7 @@
     <string name="mine5">UserName</string>
     <string name="mine6">Register</string>
     <string name="mine7">Confirm the PassWord</string>
-    <string name="checkNetworkState">Update failed, please check your network state</string>
+    <string name="checkNetworkState">Please waiting or check GPS service. Using default location</string>
 <!--    mind_page-->
     <string name="t1">Welcome</string>
     <string name="t2">Polarbear</string>
@@ -57,8 +57,7 @@
     <string name="b55">setting</string>
     <string name="b66">Complaint</string>
     <string name="b77">Wait for develop</string>
-
-
+    <string name="connectionFailed">Connection Failed</string>
 
 
 </resources>
