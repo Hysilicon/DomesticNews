@@ -442,7 +442,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
 
 //            location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-            Log.d("location", location.toString());
+//            Log.d("location", location.toString());
 
             if (location != null) {
 
