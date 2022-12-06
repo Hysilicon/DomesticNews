@@ -24,7 +24,7 @@
     <color name="colorAccent_night">#212a2f</color>
     <color name="textColorPrimary_night">#616161</color>
     <color name="viewBackground_night">#212a2f</color>
-
+    <color name="cebianlan_item">@color/Grey500</color>
     <color name="White">#FFFFFF</color>
     <color name="Black">#000000</color>
 

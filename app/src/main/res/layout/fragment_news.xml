@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-
+    <!--Build a newsreader page with the Webview-->
     <WebView
         android:id="@+id/newsWebview"
         android:layout_width="match_parent"
