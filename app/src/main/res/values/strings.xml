@@ -1,12 +1,12 @@
 <resources>
     <string name="app_name">新闻</string>
 
-    <!--    下边栏-->
+    <!--bottom bar-->
     <string name="xiabianlan_xinwen">News</string>
     <string name="xiabianlan_me">Mine</string>
     <string name="xiabianlan_me1">Register</string>
 
-    <!--    侧边栏-->
+    <!--Side bar-->
     <string name="cebianlan_item1">Switch Mode</string>
     <string name="cebianlan_item2">Get location</string>
     <string name="cebianlan_item3">Auto switch Mode(Open)</string>
@@ -14,7 +14,7 @@
     <string name="cebianlan_item5">Data</string>
     <string name="cebianlan_item6">Time</string>
 
-    <!--    侧边栏按钮-->
+    <!--Side bar button-->
     <string name="cebianlan_open">Open navigation drawer</string>
     <string name="cebianlan_close">Close navigation drawer</string>
     <string name="action_settings">setting</string>
@@ -23,10 +23,13 @@
     <string name="location">Location</string>
     <string name="no_results">No result</string>
 
-    <!--    webview界面-->
-    <string name="WebView">WebView界面示例</string>
+    <!--Get location popover-->
+    <string name="checkNetworkState">Please waiting or check GPS service. Using default location</string>
 
-    <!--    对话框-->
+    <!--webview-->
+    <string name="WebView">WebView</string>
+
+    <!--Diglog-->
     <string name="mydialogue1"> Are you sure to quit?</string>
     <string name="mydialogue6"> Switch mode to the correct standard (night mode is required from 22:00 to 6:00, other times are day mode) </string>
     <string name="b1">Yes</string>
@@ -35,7 +38,7 @@
 
 
 
-    <!--    mine界面-->
+    <!--mine page(Registration and Login)-->
     <string name="mine1">Email</string>
     <string name="mine2">PassWord</string>
     <string name="mine3">Login</string>
@@ -43,8 +46,9 @@
     <string name="mine5">UserName</string>
     <string name="mine6">Register</string>
     <string name="mine7">Confirm the PassWord</string>
-    <string name="checkNetworkState">Please waiting or check GPS service. Using default location</string>
-<!--    mind_page-->
+
+
+    <!--mine page(information)-->
     <string name="t1">Welcome</string>
     <string name="t2">Polarbear</string>
     <string name="m1">Until Today</string>

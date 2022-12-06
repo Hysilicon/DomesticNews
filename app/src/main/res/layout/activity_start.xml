@@ -6,7 +6,7 @@
     tools:context=".StartActivity"
     android:orientation="vertical"
     android:background="@color/Black">
-
+    <!--Start the page and its animation-->
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -51,7 +51,7 @@
             android:layout_marginLeft="15dp"
             android:background="@drawable/red_line"
             android:layout_toRightOf="@id/Line5"/>
-
+        <!--SKIP button-->
         <Button
             android:id="@+id/skip"
             android:textColor="@color/Grey300"
@@ -62,6 +62,7 @@
 
     </RelativeLayout>
 
+    <!--News component-->
     <RelativeLayout
         android:layout_marginTop="20dp"
         android:layout_width="match_parent"
@@ -77,6 +78,7 @@
             android:textColor="@color/white"/>
     </RelativeLayout>
 
+    <!--Bottom Tip-->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">

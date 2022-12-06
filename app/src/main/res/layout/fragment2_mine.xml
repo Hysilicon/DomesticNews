@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <!--Registration page(Text input field and registration button)-->
     <EditText
         android:id="@+id/email2"
         android:layout_width="0dp"

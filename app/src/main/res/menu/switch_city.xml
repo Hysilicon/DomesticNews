@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.reality.realityapp.ui.activity.MainActivity">
 
+    <!--Top bar component-->
     <item
         android:id="@+id/main_menu"
         android:icon="@drawable/menu"
