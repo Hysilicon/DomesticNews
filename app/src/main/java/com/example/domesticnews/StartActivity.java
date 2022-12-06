@@ -39,12 +39,12 @@ public class StartActivity extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_start);
 
-        //anim 动画
+        //anim
         top = AnimationUtils.loadAnimation(this,R.anim.top);
         buttom = AnimationUtils.loadAnimation(this,R.anim.bottom);
         middle= AnimationUtils.loadAnimation(this,R.anim.middle);
 
-        //动画组件
+        //animation components
         l1 = findViewById(R.id.Line1);
         l2 = findViewById(R.id.Line2);
         l3 = findViewById(R.id.Line3);
@@ -65,7 +65,7 @@ public class StartActivity extends AppCompatActivity {
         title.setAnimation(middle);
         sbuttom.setAnimation(buttom);
 
-        //skip操作
+        //skip
         skip.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -76,7 +76,8 @@ public class StartActivity extends AppCompatActivity {
 
         });
 
-        //判断是否点击skip按钮，如果没用，则等到时间结束自动跳转到主页
+        //Determine whether to click the skip button,
+        // if it is useless, wait until the time is over and automatically jump to the home page
         if(isFinishing() == false) {
 
                 new Handler().postDelayed(new Runnable() {

@@ -53,23 +53,21 @@ import java.util.Date;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
-    //城市名，需要赋值
     //city name
     private final String CITY = "City";
-    // 标题栏和侧边栏
     //Title bar and sidebar
     private Toolbar toolbar;
     private DrawerLayout drawer;
     private TextView title;
     private WebView newsWebView;
 
-    //菜单栏搜索
+
     //search view toolbar
     SearchView.SearchAutoComplete mSearchAutoComplete;
     SearchView mSearchView;
     String CURRENT_URL = "";
 
-    //获取当前时间和日期
+
     //get time and date
     Date newDate = new Date(System.currentTimeMillis());
     String allshijian = newDate.toString();
@@ -77,7 +75,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     String shijian = allshijian.split(" ")[3];
 
 
-    //获取定位
+
     //get loaction
     TextView locationText;
     TextView locationTextByManager;
@@ -85,7 +83,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     protected LocationManager locationManager;
     public static final int MY_PERMISSIONS_REQUEST_LOCATION_CODE = 1;
 
-    //下边栏监听
+
     //Listen for activity in the lower column
     BottomNavigationView bottom_navigation;
 
@@ -139,27 +137,26 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(true);
 
-        //监听侧边栏
+
         //listen the sidebar
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-        //添加toolbar 右侧的菜单
         toolbar.inflateMenu(R.menu.switch_city);
 
-        //侧边栏按钮
+
         //sidebar button
         drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.cebianlan_open, R.string.cebianlan_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        //下边栏
+
         //Lower bottom bar
         bottom_navigation = findViewById(R.id.bottom_navigation);
-        //设置初始界面
+        //set up the initial view
         bottom_navigation.setSelectedItemId(R.id.action_news);
 
-        //下边栏跳转
+
         //lower bottom bar button activity
         bottom_navigation = findViewById(R.id.bottom_navigation);
         bottom_navigation.setSelectedItemId(R.id.action_news);
@@ -259,7 +256,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 
     @Override
-    // 侧边栏打开后各个item点击效果
     //click sidebar effect
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
@@ -287,7 +283,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 
 
-    //侧边栏按钮打开侧边
+
     //click button to open the sidebar
     public void OnBackPressed() {
         if (drawer.isDrawerOpen(GravityCompat.START)) {
@@ -302,15 +298,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        //菜单栏得以显示
+        //show the toolbar
         getMenuInflater().inflate(R.menu.switch_city, menu);
-        //菜单栏是用于改变城市的菜单栏
         //select city
         return super.onCreateOptionsMenu(menu);
     }
 
 
-    //toolbar 菜单栏
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -420,7 +414,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 
 
-    // 获取定位
+    // Get location
     public void getLastKnownLocation(View view) {
 
 
@@ -533,28 +527,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         @Override
         protected void onPostExecute(String s) {
 
-//
-//        {
-//            "status":"OK",
-//                "result":{
-//            "location":{
-//                "lng":116.379763,
-//                        "lat":39.913542
-//            },
-//            "formatted_address":"北京市西城区复兴门内大街5号",
-//                    "business":"西单,宣武门,和平门",
-//                    "addressComponent":{
-//                "city":"北京市",
-//                        "direction":"near",
-//                        "distance":"45",
-//                        "district":"西城区",
-//                        "province":"北京市",
-//                        "street":"复兴门内大街",
-//                        "street_number":"5号"
-//            },
-//            "cityCode":131
-//        }
-//        }
+
 
 //Update the UI at the interface layer and update the webview here
             super.onPostExecute(s);

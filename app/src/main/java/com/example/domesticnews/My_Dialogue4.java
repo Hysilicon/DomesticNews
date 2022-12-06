@@ -14,10 +14,10 @@ public class My_Dialogue4 extends Dialog {
 
     public My_Dialogue4(@NonNull Context context, int themeResId) {
         super(context, themeResId);
-        //设置对话框布局
+        //set the conversation
         setContentView(R.layout.my_dialogue4);
 
-        //点击事件
+        //click event
         findViewById(R.id.yes1111).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
