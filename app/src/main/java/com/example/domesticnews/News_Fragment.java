@@ -92,12 +92,12 @@ public class News_Fragment extends Fragment {
                         .setWhen(System.currentTimeMillis())
                         .setSmallIcon(android.R.drawable.ic_dialog_info)
                         .build();
-                // 2. 获取系统的通知管理器
+
                 NotificationManager notificationManager = (NotificationManager) getActivity().getSystemService(NOTIFICATION_SERVICE);
-                // 3. 创建NotificationChannel(这里传入的channelId要和创建的通知channelId一致，才能为指定通知建立通知渠道)
+                // Create NotificationChannel
                 NotificationChannel channel = new NotificationChannel(id, "DomesticNews", NotificationManager.IMPORTANCE_DEFAULT);
                 notificationManager.createNotificationChannel(channel);
-                // 4. 发送通知
+
                 notificationManager.notify((int) System.currentTimeMillis()/1000, notification);
             }
         }
